@@ -1,0 +1,4 @@
+com\xiaoqian\common\service\IArticleService.class
+com\xiaoqian\common\pojo\Article.class
+com\xiaoqian\common\mapper\ArticleMapper.class
+com\xiaoqian\common\service\impl\ArticleServiceImpl.class
