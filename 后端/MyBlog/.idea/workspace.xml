@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4af624b-6f6b-4f26-9d5d-366d762d008b" name="Changes" comment="" />
+    <list default="true" id="a4af624b-6f6b-4f26-9d5d-366d762d008b" name="Changes" comment="修改vsc.xml以及workspace.xml文件">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/IArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/IArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +27,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../.." value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="MavenImportPreferences">
@@ -46,7 +59,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -54,6 +67,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\aifuxi\Desktop\Blog\后端\MyBlog\common\src\main\java\com\xiaoqian\common" />
       <recent name="D:\idea_java_projects\MyBlog\blog\src\main\resources" />
       <recent name="D:\idea_java_projects\MyBlog\common\src\main\resources" />
       <recent name="D:\idea_java_projects\MyBlog\blog\src\main\java\com\xiaoqian\blog" />
@@ -65,7 +79,7 @@
       <recent name="com.xiaoqian.common.domain" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ResponseResultTest.testE">
+  <component name="RunManager" selected="Spring Boot.MainApplication">
     <configuration name="ResponseResultTest.testE" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="common" />
       <extension name="coverage">
@@ -99,8 +113,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.MainApplication" />
         <item itemvalue="JUnit.ResponseResultTest.testE" />
         <item itemvalue="Spring Boot.MainApplication" />
+        <item itemvalue="JUnit.ResponseResultTest.testE" />
+        <item itemvalue="JUnit.ResponseResultTest.testE" />
       </list>
     </recent_temporary>
   </component>
@@ -138,7 +155,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="dev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

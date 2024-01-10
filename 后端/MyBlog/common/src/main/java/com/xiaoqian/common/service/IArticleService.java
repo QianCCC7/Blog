@@ -1,5 +1,6 @@
 package com.xiaoqian.common.service;
 
+import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IArticleService extends IService<Article> {
 
+    ResponseResult hotArticleList();
 }
