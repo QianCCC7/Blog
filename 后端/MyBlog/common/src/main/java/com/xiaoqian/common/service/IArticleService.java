@@ -4,6 +4,8 @@ import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 文章表 服务类
@@ -14,5 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IArticleService extends IService<Article> {
 
-    ResponseResult hotArticleList();
+    ResponseResult<List<Article>> hotArticleList();
 }

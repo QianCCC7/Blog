@@ -27,7 +27,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return
      */
     @Override
-    public ResponseResult hotArticleList() {
+    public ResponseResult<List<Article>> hotArticleList() {
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Article::getStatus, 0)
                     .orderByDesc(Article::getViewCount);
