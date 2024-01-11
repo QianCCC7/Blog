@@ -20,11 +20,11 @@ import java.util.List;
  * @since 2023-12-24
  */
 @Service
-@SuppressWarnings("unchecked")
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements IArticleService {
 
     /**
      * 查询热门文章(前十条)
+     * @return
      */
     @Override
     public ResponseResult<List<Article>> hotArticleList() {

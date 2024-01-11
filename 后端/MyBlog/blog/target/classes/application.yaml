@@ -17,9 +17,9 @@ spring:
       max-request-size: 20MB
 
 mybatis-plus:
-#  configuration:
-#    # 日志
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    # 日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       # 逻辑删除的字段
@@ -30,6 +30,3 @@ mybatis-plus:
       logic-not-delete-value: 0
       # 主键自增策略，以mysql数据库为准
       id-type: auto
-logging:
-  level:
-    com.xiaoqian: debug
