@@ -41,5 +41,4 @@ public class Knife4jConfiguration {
                 .contact(new Contact("小钱", "https://blog.csdn.net/xiaoqian7758258?type=blog", "1805521303@qq.com"))
                 .build();
     }
-
 }
