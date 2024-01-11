@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4af624b-6f6b-4f26-9d5d-366d762d008b" name="Changes" comment="修改vsc.xml以及workspace.xml文件">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/controller/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/blog/target/classes/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/target/classes/com/xiaoqian/blog/controller/ArticleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog/target/classes/com/xiaoqian/blog/controller/ArticleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/IArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/IArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/domain/ResponseResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/domain/ResponseResult.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/domain/Result.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/IArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/IArticleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/impl/ArticleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/impl/ArticleServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/test-classes/com/xiaoqian/common/domain/ResponseResultTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/test-classes/com/xiaoqian/common/domain/ResponseResultTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/blog/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,6 +181,7 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <MESSAGE value="实现热门文章接口并集成Knife4j接口文档工具" />
-    <option name="LAST_COMMIT_MESSAGE" value="实现热门文章接口并集成Knife4j接口文档工具" />
+    <MESSAGE value="主键自增策略优化为雪花算法" />
+    <option name="LAST_COMMIT_MESSAGE" value="主键自增策略优化为雪花算法" />
   </component>
 </project>
