@@ -3,6 +3,7 @@ package com.xiaoqian.common.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
 import com.xiaoqian.common.domain.vo.HotArticleVo;
@@ -32,7 +33,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public ResponseResult<List<HotArticleVo>> hotArticleList() {
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Article::getStatus, 0)
+        queryWrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL)
                     .orderByDesc(Article::getViewCount);
         Page<Article> page = new Page<>(1, 10);// 当前为第 1页，每页显示 10条数据
         page(page, queryWrapper);// 底层调用 this.getBaseMapper().selectPage(page, queryWrapper);
