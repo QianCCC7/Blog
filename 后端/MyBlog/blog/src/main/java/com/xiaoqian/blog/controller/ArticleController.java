@@ -3,6 +3,7 @@ package com.xiaoqian.blog.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
+import com.xiaoqian.common.domain.vo.HotArticleVo;
 import com.xiaoqian.common.service.IArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +33,7 @@ public class ArticleController {
 
     @ApiOperation("查询热门文章的接口")
     @GetMapping("/hotArticleList")
-    public ResponseResult<List<Article>> hotArticleList() {
+    public ResponseResult<List<HotArticleVo>> hotArticleList() {
         return articleService.hotArticleList();
     }
 }
