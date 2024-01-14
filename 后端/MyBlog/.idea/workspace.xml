@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4af624b-6f6b-4f26-9d5d-366d762d008b" name="Changes" comment="vo封装热门文章以及hutool的引用">
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/IArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/IArticleService.class" afterDir="false" />
+    <list default="true" id="a4af624b-6f6b-4f26-9d5d-366d762d008b" name="Changes" comment="字面量的处理">
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/utils/BeanCopyUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/impl/ArticleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/impl/ArticleServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +147,7 @@
       <workItem from="1704885029730" duration="629000" />
       <workItem from="1705149235262" duration="23000" />
       <workItem from="1705219226739" duration="33000" />
-      <workItem from="1705219333569" duration="4303000" />
+      <workItem from="1705219333569" duration="6096000" />
     </task>
     <task id="LOCAL-00001" summary="实现热门文章接口并集成Knife4j接口文档工具">
       <created>1704886562120</created>
@@ -174,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705225037561</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="字面量的处理">
+      <created>1705225615163</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1705225615163</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +223,7 @@
     <MESSAGE value="主程序利用ConfigurableApplicationContext编写项目文档地址" />
     <MESSAGE value="Cors解决跨域问题" />
     <MESSAGE value="vo封装热门文章以及hutool的引用" />
-    <option name="LAST_COMMIT_MESSAGE" value="vo封装热门文章以及hutool的引用" />
+    <MESSAGE value="字面量的处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="字面量的处理" />
   </component>
 </project>

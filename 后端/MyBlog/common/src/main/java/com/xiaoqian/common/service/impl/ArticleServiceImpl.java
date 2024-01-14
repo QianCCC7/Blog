@@ -10,6 +10,7 @@ import com.xiaoqian.common.domain.vo.HotArticleVo;
 import com.xiaoqian.common.mapper.ArticleMapper;
 import com.xiaoqian.common.service.IArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xiaoqian.common.utils.BeanCopyUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,10 +39,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Page<Article> page = new Page<>(1, 10);// 当前为第 1页，每页显示 10条数据
         page(page, queryWrapper);// 底层调用 this.getBaseMapper().selectPage(page, queryWrapper);
         List<Article> records = page.getRecords();// 封装数据记录
-        List<HotArticleVo> articleVoList = new ArrayList<>();
-        for (Article article : records) {
-            articleVoList.add(BeanUtil.copyProperties(article, HotArticleVo.class));
-        }
+        List<HotArticleVo> articleVoList = BeanCopyUtils.copyBeanList(records, HotArticleVo.class);
         return ResponseResult.okResult(articleVoList);
     }
 }
