@@ -31,9 +31,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Article::getStatus, 0)
                     .orderByDesc(Article::getViewCount);
-        Page<Article> page = new Page<>(1, 10);
-        page(page, queryWrapper);
-        List<Article> records = page.getRecords();
+        Page<Article> page = new Page<>(1, 10);// 当前为第 1页，每页显示 10条数据
+        page(page, queryWrapper);// 底层调用 this.getBaseMapper().selectPage(page, queryWrapper);
+        List<Article> records = page.getRecords();// 封装数据记录
 
         return ResponseResult.okResult(records);
     }

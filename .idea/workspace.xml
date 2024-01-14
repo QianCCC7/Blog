@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2d52947d-2fc1-43bc-b683-ee883c8392a2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/后端/MyBlog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/后端/MyBlog/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/MyBlog/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/MyBlog/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,10 +42,22 @@
       <option name="presentableId" value="Default" />
       <updated>1704971634345</updated>
       <workItem from="1704971635915" duration="16000" />
+      <workItem from="1705219274621" duration="33000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
