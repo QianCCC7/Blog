@@ -1,6 +1,5 @@
 package com.xiaoqian.common.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.constants.SystemConstants;
@@ -13,7 +12,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.utils.BeanCopyUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,9 +27,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /**
      * 查询热门文章(前十条)
-     * @return
      */
     @Override
+    @SuppressWarnings("unchecked")
     public ResponseResult<List<HotArticleVo>> hotArticleList() {
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL)

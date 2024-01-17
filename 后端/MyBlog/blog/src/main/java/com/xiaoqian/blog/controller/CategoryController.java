@@ -2,8 +2,8 @@ package com.xiaoqian.blog.controller;
 
 
 import com.xiaoqian.common.domain.ResponseResult;
-import com.xiaoqian.common.domain.vo.HotArticleVo;
-import com.xiaoqian.common.service.IArticleService;
+import com.xiaoqian.common.domain.vo.CategoryVo;
+import com.xiaoqian.common.service.ICategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -14,25 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
  * <p>
- * 文章表 前端控制器
+ * 分类表 前端控制器
  * </p>
  *
  * @author QianCCC
- * @since 2023-12-24
+ * @since 2024-01-17
  */
 @RestController
-@Api(tags = "文章相关接口")
-@RequestMapping("/article")
+@RequestMapping("/category")
 @RequiredArgsConstructor
-public class ArticleController {
-    private final IArticleService articleService;
+@Api(tags = "文章分类相关接口")
+public class CategoryController {
+    private final ICategoryService categoryService;
 
-    @ApiOperation("查询热门文章的接口")
-    @GetMapping("/hotArticleList")
-    public ResponseResult<List<HotArticleVo>> hotArticleList() {
-        return articleService.hotArticleList();
+    @ApiOperation("查询所有文章分类")
+    @GetMapping("/getCategoryList")
+    public ResponseResult<List<CategoryVo>> getCategoryList() {
+        return categoryService.getCategoryList();
     }
 }

@@ -4,9 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4af624b-6f6b-4f26-9d5d-366d762d008b" name="Changes" comment="字面量的处理">
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/utils/BeanCopyUtils.java" afterDir="false" />
+    <list default="true" id="a4af624b-6f6b-4f26-9d5d-366d762d008b" name="Changes" comment="自定义Bean拷贝的封装">
+      <change afterPath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/controller/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/domain/pojo/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/domain/vo/CategoryVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/mapper/CategoryMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/ICategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/CategoryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/resources/mapper/CategoryMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/target/classes/com/xiaoqian/blog/controller/ArticleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog/target/classes/com/xiaoqian/blog/controller/ArticleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/constants/SystemConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/constants/SystemConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/domain/pojo/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/domain/pojo/Article.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/impl/ArticleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/impl/ArticleServiceImpl.class" afterDir="false" />
     </list>
@@ -31,6 +41,14 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -47,6 +65,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -148,6 +167,12 @@
       <workItem from="1705149235262" duration="23000" />
       <workItem from="1705219226739" duration="33000" />
       <workItem from="1705219333569" duration="6096000" />
+      <workItem from="1705303936523" duration="56000" />
+      <workItem from="1705311068183" duration="44000" />
+      <workItem from="1705394891994" duration="30000" />
+      <workItem from="1705402813087" duration="108000" />
+      <workItem from="1705409474493" duration="11000" />
+      <workItem from="1705491343701" duration="4096000" />
     </task>
     <task id="LOCAL-00001" summary="实现热门文章接口并集成Knife4j接口文档工具">
       <created>1704886562120</created>
