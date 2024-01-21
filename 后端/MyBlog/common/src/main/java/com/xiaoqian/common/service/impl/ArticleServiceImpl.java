@@ -5,14 +5,20 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
+import com.xiaoqian.common.domain.vo.ArticleVo;
 import com.xiaoqian.common.domain.vo.HotArticleVo;
+import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.mapper.ArticleMapper;
 import com.xiaoqian.common.service.IArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xiaoqian.common.service.ICategoryService;
 import com.xiaoqian.common.utils.BeanCopyUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -23,7 +29,10 @@ import java.util.List;
  * @since 2023-12-24
  */
 @Service
+@RequiredArgsConstructor
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements IArticleService {
+
+    private final ICategoryService categoryService;
 
     /**
      * 查询热门文章(前十条)
@@ -39,5 +48,29 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         List<Article> records = page.getRecords();// 封装数据记录
         List<HotArticleVo> articleVoList = BeanCopyUtils.copyBeanList(records, HotArticleVo.class);
         return ResponseResult.okResult(articleVoList);
+    }
+
+    /**
+     * 分页查询文章列表
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public ResponseResult<PageVo<ArticleVo>> articleList(Integer pageNum, Integer pageSize, Long categoryId) {
+        // 查询条件：
+        // 1. 是否根据分类 id进行查询
+        // 2. 文章正常发布状态
+        // 3. 文章是否置顶
+        Page<Article> page = lambdaQuery()
+                .eq(Objects.nonNull(categoryId) && categoryId.compareTo(0L) > 0, Article::getCategoryId, categoryId)
+                .eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL)
+                .orderByDesc(Article::getIsTop)
+                .page(new Page<>(pageNum, pageSize));
+        List<Article> records = page.getRecords();
+        // 封装 categoryName
+        records = records.stream()
+                .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))
+                .collect(Collectors.toList());
+        List<ArticleVo> articleVos = BeanCopyUtils.copyBeanList(records, ArticleVo.class);
+        return ResponseResult.okResult(new PageVo<>(articleVos, records.size()));
     }
 }

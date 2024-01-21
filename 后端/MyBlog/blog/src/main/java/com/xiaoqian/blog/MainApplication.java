@@ -17,6 +17,6 @@ public class MainApplication {
         ConfigurableApplicationContext context = SpringApplication.run(MainApplication.class, args);
         ConfigurableEnvironment environment = context.getEnvironment();
         String port = environment.getProperty("server.port");
-        log.info("项目文档地址http://localhost:{}/doc.html", port);
+        log.info("项目文档地址: http://localhost:{}/doc.html", port);
     }
 }
