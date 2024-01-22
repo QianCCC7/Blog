@@ -19,7 +19,8 @@ export default new Router({
 			}
 		}
 	},
-	routes: [{
+	routes: [
+		{
 			path: '/',
 			component: resolve => require(['../pages/Home.vue'], resolve),
 			meta: {
@@ -27,14 +28,14 @@ export default new Router({
 			},
 			name: 'Home'
 		}, //首页
-		{
-			path: '/Home',
-			component: resolve => require(['../pages/Home.vue'], resolve),
-			meta: {
-				auth: true
-			},
-			name: 'Home'
-		}, //首页
+		// {
+		// 	path: '/Home',
+		// 	component: resolve => require(['../pages/Home.vue'], resolve),
+		// 	meta: {
+		// 		auth: true
+		// 	},
+		// 	name: 'Home'
+		// }, //首页
 		{
 			path: '/Share',
 			component: resolve => require(['../pages/Share.vue'], resolve),

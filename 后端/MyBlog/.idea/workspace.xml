@@ -4,42 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4af624b-6f6b-4f26-9d5d-366d762d008b" name="Changes" comment="实现查询有效文章分类列表的接口">
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/config/MybatisPlusConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/domain/vo/ArticleVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/domain/vo/PageVo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5581447b-0066-448c-91de-572629dcf44f.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5581447b-0066-448c-91de-572629dcf44f/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5581447b-0066-448c-91de-572629dcf44f/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5581447b-0066-448c-91de-572629dcf44f/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5581447b-0066-448c-91de-572629dcf44f/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+    <list default="true" id="a4af624b-6f6b-4f26-9d5d-366d762d008b" name="Changes" comment="配置FastJson控制返回的时间格式">
+      <change beforePath="$PROJECT_DIR$/../../前端/src/components/articlelist.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../前端/src/components/articlelist.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../前端/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../前端/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../前端/src/utils/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../前端/src/utils/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/target/admin-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/admin-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog/src/main/java/com/xiaoqian/blog/controller/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/target/blog-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/blog/target/blog-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/target/classes/com/xiaoqian/blog/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog/target/classes/com/xiaoqian/blog/MainApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/target/classes/com/xiaoqian/blog/controller/ArticleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog/target/classes/com/xiaoqian/blog/controller/ArticleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/blog/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/blog/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/blog/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/domain/pojo/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/domain/pojo/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/IArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/IArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/xiaoqian/common/service/impl/ArticleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/domain/pojo/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/domain/pojo/Article.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/IArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/IArticleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/impl/ArticleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/classes/com/xiaoqian/common/service/impl/ArticleServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/common-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/common-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/common/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +174,11 @@
       <workItem from="1705743452342" duration="653000" />
       <workItem from="1705745103737" duration="457000" />
       <workItem from="1705830600493" duration="14000" />
-      <workItem from="1705837604439" duration="7470000" />
+      <workItem from="1705837604439" duration="8251000" />
+      <workItem from="1705905805979" duration="50000" />
+      <workItem from="1705915689242" duration="2533000" />
+      <workItem from="1705921572381" duration="143000" />
+      <workItem from="1705921926110" duration="2029000" />
     </task>
     <task id="LOCAL-00001" summary="实现热门文章接口并集成Knife4j接口文档工具">
       <created>1704886562120</created>
@@ -239,7 +215,21 @@
       <option name="project" value="LOCAL" />
       <updated>1705225615163</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="实现分页查询文章列表接口">
+      <created>1705846334783</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1705846334783</updated>
+    </task>
+    <task id="LOCAL-00007" summary="配置FastJson控制返回的时间格式">
+      <created>1705924229120</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1705924229120</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +269,8 @@
     <MESSAGE value="Cors解决跨域问题" />
     <MESSAGE value="vo封装热门文章以及hutool的引用" />
     <MESSAGE value="字面量的处理" />
-    <option name="LAST_COMMIT_MESSAGE" value="字面量的处理" />
+    <MESSAGE value="实现分页查询文章列表接口" />
+    <MESSAGE value="配置FastJson控制返回的时间格式" />
+    <option name="LAST_COMMIT_MESSAGE" value="配置FastJson控制返回的时间格式" />
   </component>
 </project>
