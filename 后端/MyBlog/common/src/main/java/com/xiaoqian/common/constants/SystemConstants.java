@@ -20,4 +20,9 @@ public class SystemConstants {
      * 分类禁用的状态
      */
     public static final Integer CATEGORY_STATUS_DISABLED = 0;
+
+    /**
+     * 友链是审核通过状态
+     */
+    public static final Integer LINK_STATUS_NORMAL = 0;
 }
