@@ -3,6 +3,7 @@ package com.xiaoqian.common.service;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xiaoqian.common.domain.vo.ArticleDetailVo;
 import com.xiaoqian.common.domain.vo.ArticleVo;
 import com.xiaoqian.common.domain.vo.HotArticleVo;
 import com.xiaoqian.common.domain.vo.PageVo;
@@ -22,4 +23,6 @@ public interface IArticleService extends IService<Article> {
     ResponseResult<List<HotArticleVo>> hotArticleList();
 
     ResponseResult<PageVo<ArticleVo>> articleList(Integer pageNum, Integer pageSize, Long categoryId);
+
+    ResponseResult<ArticleDetailVo> getArticleDetailById(Long id);
 }

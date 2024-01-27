@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
+import com.xiaoqian.common.domain.pojo.Category;
+import com.xiaoqian.common.domain.vo.ArticleDetailVo;
 import com.xiaoqian.common.domain.vo.ArticleVo;
 import com.xiaoqian.common.domain.vo.HotArticleVo;
 import com.xiaoqian.common.domain.vo.PageVo;
@@ -72,5 +74,23 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .collect(Collectors.toList());
         List<ArticleVo> articleVos = BeanCopyUtils.copyBeanList(records, ArticleVo.class);
         return ResponseResult.okResult(new PageVo<>(articleVos, records.size()));
+    }
+
+    /**
+     * 获取文章详情
+     */
+    @Override
+    public ResponseResult<ArticleDetailVo> getArticleDetailById(Long id) {
+        Article article = getById(id);
+        if (Objects.nonNull(article)) {
+            ArticleDetailVo articleDetailVo = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
+            Long categoryId = articleDetailVo.getCategoryId();
+            Category category = categoryService.getById(categoryId);
+            if (Objects.nonNull(category)) {
+                articleDetailVo.setCategoryName(category.getName());
+            }
+            return ResponseResult.okResult(articleDetailVo);
+        }
+        return null;
     }
 }

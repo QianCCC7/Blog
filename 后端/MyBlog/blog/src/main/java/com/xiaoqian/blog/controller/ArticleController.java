@@ -2,6 +2,7 @@ package com.xiaoqian.blog.controller;
 
 
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.vo.ArticleDetailVo;
 import com.xiaoqian.common.domain.vo.ArticleVo;
 import com.xiaoqian.common.domain.vo.HotArticleVo;
 import com.xiaoqian.common.domain.vo.PageVo;
@@ -9,11 +10,7 @@ import com.xiaoqian.common.service.IArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,5 +42,11 @@ public class ArticleController {
                                                          @RequestParam("pageSize") Integer pageSize,
                                                          @RequestParam(value = "categoryId", required = false) Long categoryId) {
         return articleService.articleList(pageNum, pageSize, categoryId);
+    }
+
+    @ApiOperation("根据文章id查询文章详情")
+    @GetMapping("/{id}")
+    public ResponseResult<ArticleDetailVo> getArticleDetailById(@PathVariable("id") Long id) {
+        return articleService.getArticleDetailById(id);
     }
 }
