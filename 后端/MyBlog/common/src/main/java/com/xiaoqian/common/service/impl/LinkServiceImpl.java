@@ -36,6 +36,6 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements IL
             List<LinkVo> linkVoList = BeanCopyUtils.copyBeanList(linkList, LinkVo.class);
             return ResponseResult.okResult(linkVoList);
         }
-        return null;
+        return ResponseResult.okEmptyResult();
     }
 }

@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.utils.BeanCopyUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -31,8 +32,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public ResponseResult<List<CategoryVo>> getCategoryList() {
         Set<Integer> categoryIds = this.getBaseMapper().queryAvailableCategoryIds();
-        List<Category> categories = listByIds(categoryIds);
-        List<CategoryVo> categoryVos = BeanCopyUtils.copyBeanList(categories, CategoryVo.class);
-        return ResponseResult.okResult(categoryVos);
+        if (!CollectionUtils.isEmpty(categoryIds)) {
+            List<Category> categories = listByIds(categoryIds);
+            List<CategoryVo> categoryVos = BeanCopyUtils.copyBeanList(categories, CategoryVo.class);
+            return ResponseResult.okResult(categoryVos);
+        }
+        return ResponseResult.okEmptyResult();
     }
 }

@@ -17,6 +17,7 @@ import com.xiaoqian.common.service.ICategoryService;
 import com.xiaoqian.common.utils.BeanCopyUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,8 +49,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Page<Article> page = new Page<>(1, 10);// 当前为第 1页，每页显示 10条数据
         page(page, queryWrapper);// 底层调用 this.getBaseMapper().selectPage(page, queryWrapper);
         List<Article> records = page.getRecords();// 封装数据记录
-        List<HotArticleVo> articleVoList = BeanCopyUtils.copyBeanList(records, HotArticleVo.class);
-        return ResponseResult.okResult(articleVoList);
+        if (!CollectionUtils.isEmpty(records)) {
+            return ResponseResult.okResult(BeanCopyUtils.copyBeanList(records, HotArticleVo.class));
+        }
+        return ResponseResult.okEmptyResult();
     }
 
     /**
@@ -68,12 +71,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .orderByDesc(Article::getIsTop)
                 .page(new Page<>(pageNum, pageSize));
         List<Article> records = page.getRecords();
-        // 封装 categoryName
-        records = records.stream()
-                .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))
-                .collect(Collectors.toList());
-        List<ArticleVo> articleVos = BeanCopyUtils.copyBeanList(records, ArticleVo.class);
-        return ResponseResult.okResult(new PageVo<>(articleVos, records.size()));
+        if (!CollectionUtils.isEmpty(records)) {
+            // 封装 categoryName
+            records = records.stream()
+                    .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))
+                    .collect(Collectors.toList());
+            List<ArticleVo> articleVos = BeanCopyUtils.copyBeanList(records, ArticleVo.class);
+            return ResponseResult.okResult(new PageVo<>(articleVos, records.size()));
+        }
+        return ResponseResult.okEmptyResult();
     }
 
     /**
@@ -91,6 +97,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             }
             return ResponseResult.okResult(articleDetailVo);
         }
-        return null;
+        return ResponseResult.okEmptyResult();
     }
 }
