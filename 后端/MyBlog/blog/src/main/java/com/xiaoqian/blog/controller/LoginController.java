@@ -1,0 +1,24 @@
+package com.xiaoqian.blog.controller;
+
+import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.pojo.User;
+import com.xiaoqian.common.domain.vo.LoginUserVo;
+import com.xiaoqian.common.service.ILoginService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/login")
+@Api(tags = "登录相关接口")
+@RequiredArgsConstructor
+public class LoginController {
+    private final ILoginService loginService;
+
+    @ApiOperation("用户登录接口")
+    @PostMapping
+    public ResponseResult<LoginUserVo> login(@RequestBody User user) {
+        return loginService.login(user);
+    }
+}

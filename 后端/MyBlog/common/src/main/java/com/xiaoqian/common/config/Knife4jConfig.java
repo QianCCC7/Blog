@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @SuppressWarnings("all")
-public class Knife4jConfiguration {
+public class Knife4jConfig {
     // 创建Docket存入容器，Docket代表一个接口文档
     @Bean
     public Docket webApiConfig() {
