@@ -1,6 +1,8 @@
 package com.xiaoqian.common.config;
 
 import com.xiaoqian.common.filter.JwtAuthenticationFilter;
+import com.xiaoqian.common.handle.AccessDeniedHandlerImpl;
+import com.xiaoqian.common.handle.AuthenticationEntryPointImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AuthenticationEntryPointImpl authenticationEntryPoint;
+    private final AccessDeniedHandlerImpl accessDeniedHandler;
 
     @Bean
     @Override
@@ -45,6 +49,10 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll();
         // 添加 Jwt认证过滤器
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        // 配置异常处理器
+        http.exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint);
         http.logout().disable();
         //允许跨域
         http.cors();
