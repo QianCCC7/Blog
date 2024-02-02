@@ -45,7 +45,8 @@ public class LoginServiceImpl implements ILoginService {
         Long userId = loginUser.getUser().getId();
         String jwt = JwtUtils.createJWT(userId.toString());
         // 5. 把用户信息存入 redis
-        redisTemplate.opsForValue().set("login-user:" + userId, loginUser);
+        String redisLoginUserPrefix = "login-user:";
+        redisTemplate.opsForValue().set(redisLoginUserPrefix + userId, loginUser);
         // 6. 封装 token和用户信息返回
         LoginUserInfo userInfo = BeanCopyUtils.copyBean(loginUser.getUser(), LoginUserInfo.class);
         LoginUserVo loginUserVo = new LoginUserVo(jwt, userInfo);

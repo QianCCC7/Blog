@@ -15,7 +15,7 @@ import java.util.UUID;
 public class JwtUtils {
 
     // 默认 jwt有效期
-    public static final Long JWT_TTL = 72 * 60 * 60 * 1000L;// 60 * 60 *1000  一个小时
+    public static final Long JWT_TTL = 24 * 60 * 60 * 1000L;// 一天
     // 设置秘钥明文
     public static final String JWT_KEY = "xiaoqian";
 
@@ -24,10 +24,10 @@ public class JwtUtils {
     }
 
     /**
-     * 生成 jtw，只指定 jwt中的数据
+     * 生成 jwt，只指定 jwt中的数据
      */
     public static String createJWT(String subject) {
-        JwtBuilder builder = getJwtBuilder(subject, null, getUUID());// 设置过期时间
+        JwtBuilder builder = getJwtBuilder(subject, null, getUUID());
         return builder.compact();
     }
 
@@ -35,15 +35,15 @@ public class JwtUtils {
      * 生成 jwt，制定 jwt中的数据并设置过期时间
      */
     public static String createJWT(String subject, Long ttlMillis) {
-        JwtBuilder builder = getJwtBuilder(subject, ttlMillis, getUUID());// 设置过期时间
+        JwtBuilder builder = getJwtBuilder(subject, ttlMillis, getUUID());
         return builder.compact();
     }
 
     /**
      * 生成 jwt
      */
-    public static String createJWT(String id, String subject, Long ttlMillis) {
-        JwtBuilder builder = getJwtBuilder(subject, ttlMillis, id);// 设置过期时间
+    public static String createJWT(String subject, Long ttlMillis, String uuid) {
+        JwtBuilder builder = getJwtBuilder(subject, ttlMillis, uuid);
         return builder.compact();
     }
 
@@ -61,8 +61,8 @@ public class JwtUtils {
                 .setId(uuid)              //唯一的ID
                 .setSubject(subject)   // 主题  可以是JSON数据
                 .setIssuer("xiaoqian")     // 签发者
-                .setIssuedAt(now)      // 签发时间
                 .signWith(signatureAlgorithm, secretKey) //使用HS256对称加密算法签名, 第二个参数为秘钥
+                .setIssuedAt(now)      // 签发时间
                 .setExpiration(expDate);
     }
 
