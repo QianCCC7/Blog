@@ -5,6 +5,7 @@ import com.xiaoqian.common.domain.pojo.LoginUser;
 import com.xiaoqian.common.domain.pojo.User;
 import com.xiaoqian.common.domain.vo.LoginUserInfo;
 import com.xiaoqian.common.domain.vo.LoginUserVo;
+import com.xiaoqian.common.exception.LoginException;
 import com.xiaoqian.common.service.ILoginService;
 import com.xiaoqian.common.utils.BeanCopyUtils;
 import com.xiaoqian.common.utils.JwtUtils;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Objects;
 
@@ -31,6 +33,9 @@ public class LoginServiceImpl implements ILoginService {
      */
     @Override
     public ResponseResult<LoginUserVo> login(User user) {
+        if (Objects.isNull(user) || !StringUtils.hasText(user.getUserName()) || !StringUtils.hasText(user.getPassword())) {
+            throw new LoginException();
+        }
         // 1. 封装 UsernamePasswordAuthenticationToken
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
