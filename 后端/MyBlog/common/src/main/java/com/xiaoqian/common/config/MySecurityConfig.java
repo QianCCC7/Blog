@@ -44,6 +44,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/login").anonymous()
+                .antMatchers("/logout").authenticated()
                 .antMatchers("/link/getAllLink").authenticated()
                 // 除上面外的所有请求全部不需要认证即可访问
                 .anyRequest().permitAll();
@@ -53,7 +54,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint);
-        http.logout().disable();
+        http.logout().disable();// 关闭 SpringSecurity默认的退出登录功能
         //允许跨域
         http.cors();
     }

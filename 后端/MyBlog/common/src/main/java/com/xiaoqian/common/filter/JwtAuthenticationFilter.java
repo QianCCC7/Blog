@@ -1,6 +1,7 @@
 package com.xiaoqian.common.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.xiaoqian.common.constants.RedisConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.LoginUser;
 import com.xiaoqian.common.enums.HttpCodeEnum;
@@ -35,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 1. 获取请求头中的 token
         String token = request.getHeader("token");
         if (!StringUtils.hasText(token)) {
-            // 该接口不需要登录即可访问，直接放行
+            // 该接口不需要登录即可访问，直接放行，比如登录接口就不需要登录。
             filterChain.doFilter(request, response);
             return;
         }
@@ -52,8 +53,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Assert.notNull(claims, "claims不能为空");
         String userId = claims.getSubject();
         // 3. 从 redis中获取对应用户信息
-        String redisLoginUserPrefix = "login-user:";
-        LoginUser loginUser = (LoginUser) redisTemplate.opsForValue().get(redisLoginUserPrefix + userId);
+        LoginUser loginUser
+                = (LoginUser) redisTemplate.opsForValue().get(RedisConstants.REDIS_LOGIN_USER_PREFIX + userId);
         if (Objects.isNull(loginUser)) {
             // 登录过期
             String errorResultStr = JSON.toJSONString(ResponseResult.errorResult(HttpCodeEnum.NEED_LOGIN));

@@ -1,5 +1,6 @@
 package com.xiaoqian.common.service.impl;
 
+import com.xiaoqian.common.constants.RedisConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.LoginUser;
 import com.xiaoqian.common.domain.pojo.User;
@@ -15,6 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -50,11 +52,24 @@ public class LoginServiceImpl implements ILoginService {
         Long userId = loginUser.getUser().getId();
         String jwt = JwtUtils.createJWT(userId.toString());
         // 5. 把用户信息存入 redis
-        String redisLoginUserPrefix = "login-user:";
-        redisTemplate.opsForValue().set(redisLoginUserPrefix + userId, loginUser);
+        redisTemplate.opsForValue().set(RedisConstants.REDIS_LOGIN_USER_PREFIX + userId, loginUser);
         // 6. 封装 token和用户信息返回
         LoginUserInfo userInfo = BeanCopyUtils.copyBean(loginUser.getUser(), LoginUserInfo.class);
         LoginUserVo loginUserVo = new LoginUserVo(jwt, userInfo);
         return ResponseResult.okResult(loginUserVo);
+    }
+
+    /**
+     * 退出登录
+     */
+    @Override
+    public ResponseResult<Object> logout() {
+        // 1. 通过 SecurityContextHolder获取 userId
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Long userId = loginUser.getUser().getId();
+        // 2. redis删除登录用户信息
+        redisTemplate.delete(RedisConstants.REDIS_LOGIN_USER_PREFIX + userId);
+        return ResponseResult.okEmptyResult();
     }
 }

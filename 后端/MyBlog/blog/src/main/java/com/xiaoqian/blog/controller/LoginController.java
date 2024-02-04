@@ -10,15 +10,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/login")
 @Api(tags = "登录相关接口")
 @RequiredArgsConstructor
 public class LoginController {
     private final ILoginService loginService;
 
     @ApiOperation("用户登录接口")
-    @PostMapping
+    @PostMapping("/login")
     public ResponseResult<LoginUserVo> login(@RequestBody User user) {
         return loginService.login(user);
+    }
+
+    @ApiOperation("用户退出登录接口")
+    @PostMapping("/logout")
+    public ResponseResult<Object> logout() {
+        return loginService.logout();
     }
 }

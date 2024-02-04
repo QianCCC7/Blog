@@ -6,4 +6,6 @@ import com.xiaoqian.common.domain.vo.LoginUserVo;
 
 public interface ILoginService {
     ResponseResult<LoginUserVo> login(User user);
+
+    ResponseResult<Object> logout();
 }
