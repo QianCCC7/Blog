@@ -7,6 +7,7 @@ import com.xiaoqian.common.domain.vo.ArticleDetailVo;
 import com.xiaoqian.common.domain.vo.ArticleVo;
 import com.xiaoqian.common.domain.vo.HotArticleVo;
 import com.xiaoqian.common.domain.vo.PageVo;
+import com.xiaoqian.common.query.PageQuery;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface IArticleService extends IService<Article> {
 
     ResponseResult<List<HotArticleVo>> hotArticleList();
 
-    ResponseResult<PageVo<ArticleVo>> articleList(Integer pageNum, Integer pageSize, Long categoryId);
+    ResponseResult<PageVo<ArticleVo>> articleList(PageQuery pageQuery, Long categoryId);
 
     ResponseResult<ArticleDetailVo> getArticleDetailById(Long id);
 }

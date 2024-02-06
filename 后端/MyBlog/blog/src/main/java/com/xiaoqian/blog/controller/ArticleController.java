@@ -6,6 +6,7 @@ import com.xiaoqian.common.domain.vo.ArticleDetailVo;
 import com.xiaoqian.common.domain.vo.ArticleVo;
 import com.xiaoqian.common.domain.vo.HotArticleVo;
 import com.xiaoqian.common.domain.vo.PageVo;
+import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.IArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,10 +39,9 @@ public class ArticleController {
 
     @ApiOperation("分页查询文章列表")
     @GetMapping("/articleList")
-    public ResponseResult<PageVo<ArticleVo>> articleList(@RequestParam("pageNum") Integer pageNum,
-                                                         @RequestParam("pageSize") Integer pageSize,
+    public ResponseResult<PageVo<ArticleVo>> articleList(PageQuery pageQuery,
                                                          @RequestParam(value = "categoryId", required = false) Long categoryId) {
-        return articleService.articleList(pageNum, pageSize, categoryId);
+        return articleService.articleList(pageQuery, categoryId);
     }
 
     @ApiOperation("根据文章id查询文章详情")

@@ -4,6 +4,7 @@ package com.xiaoqian.blog.controller;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.vo.CommentVo;
 import com.xiaoqian.common.domain.vo.PageVo;
+import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.ICommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,8 +33,7 @@ public class CommentController {
     @ApiOperation("分页查询评论列表")
     @GetMapping("/commentList")
     public ResponseResult<PageVo<CommentVo>> queryCommentList(@RequestParam("articleId") Long articleId,
-                                                              @RequestParam("pageNo") Integer pageNo,
-                                                              @RequestParam("pageSize") Integer pageSize) {
-        return commentService.queryCommentList(articleId, pageNo, pageSize);
+                                                              PageQuery pageQuery) {
+        return commentService.queryCommentList(articleId, pageQuery);
     }
 }

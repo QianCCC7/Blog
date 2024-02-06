@@ -8,6 +8,7 @@ import com.xiaoqian.common.domain.pojo.User;
 import com.xiaoqian.common.domain.vo.CommentVo;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.mapper.CommentMapper;
+import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.ICommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.service.IUserService;
@@ -37,24 +38,49 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
      * 分页查询评论列表
      */
     @Override
-    public ResponseResult<PageVo<CommentVo>> queryCommentList(Long articleId, Integer pageNo, Integer pageSize) {
+    public ResponseResult<PageVo<CommentVo>> queryCommentList(Long articleId, PageQuery pageQuery) {
         // 1. 分页查询文章对应的所有根评论
         Page<Comment> page = lambdaQuery()
                 .eq(Comment::getArticleId, articleId)
                 .eq(Comment::getRootId, SystemConstants.ROOT_COMMENT_SIGN)
-                .page(new Page<>(pageNo, pageSize));
-        // 2. 填充数据
+                .page(pageQuery.toPage());
         List<Comment> records = page.getRecords();
         if (CollectionUtils.isEmpty(records)) {
             return ResponseResult.okEmptyResult();
         }
-        List<CommentVo> commentVoList = BeanCopyUtils.copyBeanList(records, CommentVo.class);
-        for (CommentVo vo : commentVoList) {
+        // 2. 封装 vo数据
+        return ResponseResult.okResult(new PageVo<>(getCommentVoList(records), records.size()));
+    }
+
+    /**
+     * 递归查询对应评论的子评论
+     * @param rootCommentId 根评论 id
+     */
+    @SuppressWarnings("unchecked")
+    private List<CommentVo> getCommentChildren(Long rootCommentId) {
+        List<Comment> commentList = lambdaQuery()
+                .eq(Comment::getRootId, rootCommentId)
+                .orderByDesc(Comment::getCreateTime) // 根据时间降序查询
+                .list();
+        return getCommentVoList(commentList);
+    }
+
+    /**
+     * 根据评论列表获取其对应的 vo列表数据
+     */
+    public List<CommentVo> getCommentVoList(List<Comment> commentList) {
+        List<CommentVo> childrenComments = BeanCopyUtils.copyBeanList(commentList, CommentVo.class);
+        for (CommentVo vo : childrenComments) {
             User user = userService.getById(vo.getCreateBy());
             User toCommentUser = userService.getById(vo.getToCommentUserId());
             vo.setUsername(user != null ? user.getUserName() : null);
             vo.setToCommentUserName(toCommentUser != null ? toCommentUser.getUserName() : null);
+            // 3. 查询对应根评论的子评论
+            List<CommentVo> children = getCommentChildren(vo.getId());
+            if (!CollectionUtils.isEmpty(children)) {
+                vo.setChildren(children);
+            }
         }
-        return ResponseResult.okResult(new PageVo<>(commentVoList, records.size()));
+        return childrenComments;
     }
 }

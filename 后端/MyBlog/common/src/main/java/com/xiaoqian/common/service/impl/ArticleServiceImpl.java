@@ -11,6 +11,7 @@ import com.xiaoqian.common.domain.vo.ArticleVo;
 import com.xiaoqian.common.domain.vo.HotArticleVo;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.mapper.ArticleMapper;
+import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.IArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.service.ICategoryService;
@@ -60,7 +61,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     @SuppressWarnings("unchecked")
-    public ResponseResult<PageVo<ArticleVo>> articleList(Integer pageNum, Integer pageSize, Long categoryId) {
+    public ResponseResult<PageVo<ArticleVo>> articleList(PageQuery pageQuery, Long categoryId) {
         // 查询条件：
         // 1. 是否根据分类 id进行查询
         // 2. 文章正常发布状态
@@ -69,7 +70,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .eq(Objects.nonNull(categoryId) && categoryId.compareTo(0L) > 0, Article::getCategoryId, categoryId)
                 .eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL)
                 .orderByDesc(Article::getIsTop)
-                .page(new Page<>(pageNum, pageSize));
+                .page(pageQuery.toPage());
         List<Article> records = page.getRecords();
         if (!CollectionUtils.isEmpty(records)) {
             // 封装 categoryName
