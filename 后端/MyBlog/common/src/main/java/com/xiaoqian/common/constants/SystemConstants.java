@@ -25,4 +25,9 @@ public class SystemConstants {
      * 友链是审核通过状态
      */
     public static final Integer LINK_STATUS_NORMAL = 0;
+
+    /**
+     * 根评论标识
+     */
+    public static final Integer ROOT_COMMENT_SIGN = -1;
 }

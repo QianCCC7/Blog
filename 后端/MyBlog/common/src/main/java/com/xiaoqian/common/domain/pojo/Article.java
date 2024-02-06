@@ -84,12 +84,18 @@ public class Article implements Serializable {
     @TableField("is_comment")
     private String isComment;
 
+    /**
+     * 作者id
+     */
     @TableField("create_by")
     private Long createBy;
 
     @TableField("create_time")
     private LocalDateTime createTime;
 
+    /**
+     * 更新人id
+     */
     @TableField("update_by")
     private Long updateBy;
 
