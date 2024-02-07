@@ -8,6 +8,7 @@ import com.xiaoqian.common.domain.pojo.Comment;
 import com.xiaoqian.common.domain.pojo.User;
 import com.xiaoqian.common.domain.vo.CommentVo;
 import com.xiaoqian.common.domain.vo.PageVo;
+import com.xiaoqian.common.enums.CommentTypeEnum;
 import com.xiaoqian.common.exception.CommentException;
 import com.xiaoqian.common.mapper.CommentMapper;
 import com.xiaoqian.common.query.PageQuery;
@@ -22,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -41,11 +43,12 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
      * 分页查询评论列表
      */
     @Override
-    public ResponseResult<PageVo<CommentVo>> queryCommentList(Long articleId, PageQuery pageQuery) {
+    public ResponseResult<PageVo<CommentVo>> queryCommentList(Long articleId, PageQuery pageQuery, CommentTypeEnum commentTypeEnum) {
         // 1. 分页查询文章对应的所有根评论
         Page<Comment> page = lambdaQuery()
-                .eq(Comment::getArticleId, articleId)
+                .eq(Objects.nonNull(articleId), Comment::getArticleId, articleId)
                 .eq(Comment::getRootId, SystemConstants.ROOT_COMMENT_SIGN)
+                .eq(Comment::getType, commentTypeEnum.getType())
                 .page(pageQuery.toPage(pageQuery.getPageNo(), pageQuery.getPageSize()));
 
         List<Comment> records = page.getRecords();
@@ -97,7 +100,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         if (!StringUtils.hasText(commentDTO.getContent())) {
             throw new CommentException();
         }
-        // 2. po转换
+        // 2. po转换，无需再设置创建者属性，因为MP配置了字段填充
         Comment comment = BeanCopyUtils.copyBean(commentDTO, Comment.class);
         save(comment);
         return ResponseResult.okResult();
