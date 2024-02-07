@@ -35,7 +35,8 @@
             </form>
         </div>
         <div class="tmsg-comments"  ref="listDom">
-            <a href="#" class="tmsg-comments-tip">活捉 {{commentList?commentList.length:0}} 条</a>
+            <!-- <a href="#" class="tmsg-comments-tip">活捉 {{commentList?commentList.length:0}} 条</a> -->
+            <i class="tmsg-comments-tip">活捉 {{commentList?commentList.length:0}} 条</i>
             <div class="tmsg-commentshow">
                 <ul class="tmsg-commentlist">
                     <li class="tmsg-c-item" v-for="(item,index) in commentList" :key="'common'+index">
