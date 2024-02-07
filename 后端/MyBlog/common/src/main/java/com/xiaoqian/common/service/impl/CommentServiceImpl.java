@@ -43,7 +43,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         Page<Comment> page = lambdaQuery()
                 .eq(Comment::getArticleId, articleId)
                 .eq(Comment::getRootId, SystemConstants.ROOT_COMMENT_SIGN)
-                .page(pageQuery.toPage());
+                .page(pageQuery.toPage(pageQuery.getPageNo(), pageQuery.getPageSize()));
+
         List<Comment> records = page.getRecords();
         if (CollectionUtils.isEmpty(records)) {
             return ResponseResult.okEmptyResult();

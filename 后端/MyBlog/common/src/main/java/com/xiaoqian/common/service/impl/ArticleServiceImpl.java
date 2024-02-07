@@ -70,7 +70,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .eq(Objects.nonNull(categoryId) && categoryId.compareTo(0L) > 0, Article::getCategoryId, categoryId)
                 .eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL)
                 .orderByDesc(Article::getIsTop)
-                .page(pageQuery.toPage());
+                .page(pageQuery.toPage(pageQuery.getPageNo(), pageQuery.getPageSize()));
+
         List<Article> records = page.getRecords();
         if (!CollectionUtils.isEmpty(records)) {
             // 封装 categoryName
