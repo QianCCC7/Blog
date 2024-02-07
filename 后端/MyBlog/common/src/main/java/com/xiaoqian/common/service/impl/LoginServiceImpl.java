@@ -2,8 +2,8 @@ package com.xiaoqian.common.service.impl;
 
 import com.xiaoqian.common.constants.RedisConstants;
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.pojo.LoginUser;
-import com.xiaoqian.common.domain.pojo.User;
 import com.xiaoqian.common.domain.vo.LoginUserInfo;
 import com.xiaoqian.common.domain.vo.LoginUserVo;
 import com.xiaoqian.common.exception.LoginException;
@@ -34,13 +34,13 @@ public class LoginServiceImpl implements ILoginService {
      * 用户登录
      */
     @Override
-    public ResponseResult<LoginUserVo> login(User user) {
-        if (Objects.isNull(user) || !StringUtils.hasText(user.getUserName()) || !StringUtils.hasText(user.getPassword())) {
+    public ResponseResult<LoginUserVo> login(UserDTO user) {
+        if (Objects.isNull(user) || !StringUtils.hasText(user.getUsername()) || !StringUtils.hasText(user.getPassword())) {
             throw new LoginException();
         }
         // 1. 封装 UsernamePasswordAuthenticationToken
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         // 2. 通过 AuthenticationManager进行认证
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         if (Objects.isNull(authentication)) {

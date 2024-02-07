@@ -49,7 +49,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         if (CollectionUtils.isEmpty(records)) {
             return ResponseResult.okEmptyResult();
         }
-        // 2. 封装 vo数据
         return ResponseResult.okResult(new PageVo<>(getCommentVoList(records), records.size()));
     }
 
@@ -72,11 +71,12 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     public List<CommentVo> getCommentVoList(List<Comment> commentList) {
         List<CommentVo> childrenComments = BeanCopyUtils.copyBeanList(commentList, CommentVo.class);
         for (CommentVo vo : childrenComments) {
+            // 1. 封装 vo用户名数据
             User user = userService.getById(vo.getCreateBy());
             User toCommentUser = userService.getById(vo.getToCommentUserId());
             vo.setUsername(user != null ? user.getUserName() : null);
             vo.setToCommentUserName(toCommentUser != null ? toCommentUser.getUserName() : null);
-            // 3. 查询对应根评论的子评论
+            // 2. 查询对应根评论的子评论
             List<CommentVo> children = getCommentChildren(vo.getId());
             if (!CollectionUtils.isEmpty(children)) {
                 vo.setChildren(children);
