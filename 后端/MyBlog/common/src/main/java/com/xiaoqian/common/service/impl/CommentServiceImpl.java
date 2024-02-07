@@ -3,10 +3,12 @@ package com.xiaoqian.common.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.CommentDTO;
 import com.xiaoqian.common.domain.pojo.Comment;
 import com.xiaoqian.common.domain.pojo.User;
 import com.xiaoqian.common.domain.vo.CommentVo;
 import com.xiaoqian.common.domain.vo.PageVo;
+import com.xiaoqian.common.exception.CommentException;
 import com.xiaoqian.common.mapper.CommentMapper;
 import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.ICommentService;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -83,5 +86,20 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             }
         }
         return childrenComments;
+    }
+
+    /**
+     * 发送评论
+     */
+    @Override
+    public ResponseResult<Object> postComment(CommentDTO commentDTO) {
+        // 1. 评论内容判空
+        if (!StringUtils.hasText(commentDTO.getContent())) {
+            throw new CommentException();
+        }
+        // 2. po转换
+        Comment comment = BeanCopyUtils.copyBean(commentDTO, Comment.class);
+        save(comment);
+        return ResponseResult.okResult();
     }
 }

@@ -2,6 +2,7 @@ package com.xiaoqian.blog.controller;
 
 
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.CommentDTO;
 import com.xiaoqian.common.domain.vo.CommentVo;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.query.PageQuery;
@@ -9,11 +10,7 @@ import com.xiaoqian.common.service.ICommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -35,5 +32,11 @@ public class CommentController {
     public ResponseResult<PageVo<CommentVo>> queryCommentList(@RequestParam("articleId") Long articleId,
                                                               PageQuery pageQuery) {
         return commentService.queryCommentList(articleId, pageQuery);
+    }
+
+    @ApiOperation("发送评论")
+    @PostMapping
+    public ResponseResult<Object> postComment(@RequestBody CommentDTO commentDTO) {
+        return commentService.postComment(commentDTO);
     }
 }

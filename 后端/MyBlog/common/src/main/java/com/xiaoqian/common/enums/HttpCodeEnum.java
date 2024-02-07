@@ -13,6 +13,7 @@ public enum HttpCodeEnum {
     EMAIL_EXIST(503, "邮箱已存在"),
     REQUIRE_USERNAME_AND_PASSWORD(504, "必需填写用户名和密码"),
     LOGIN_ERROR(505,"用户名或密码错误"),
+    COMMENT_NOT_NULL(506, "评论内容不能为空")
     ;
     int code;
     String msg;

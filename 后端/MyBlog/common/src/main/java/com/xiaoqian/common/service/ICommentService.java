@@ -1,6 +1,7 @@
 package com.xiaoqian.common.service;
 
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.CommentDTO;
 import com.xiaoqian.common.domain.pojo.Comment;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaoqian.common.domain.vo.CommentVo;
@@ -18,4 +19,6 @@ import com.xiaoqian.common.query.PageQuery;
 public interface ICommentService extends IService<Comment> {
 
     ResponseResult<PageVo<CommentVo>> queryCommentList(Long articleId, PageQuery pageQuery);
+
+    ResponseResult<Object> postComment(CommentDTO commentDTO);
 }
