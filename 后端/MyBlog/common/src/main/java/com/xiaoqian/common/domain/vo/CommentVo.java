@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -31,7 +31,7 @@ public class CommentVo {
     @ApiModelProperty("当前评论的作者id")
     private Long createBy;
     @ApiModelProperty("评论创建时间")
-    private Date createTime;
+    private LocalDateTime createTime;
     @ApiModelProperty("当前评论的作者用户名")
     private String username;
     @ApiModelProperty("当前评论的子评论")
