@@ -41,14 +41,11 @@
 			<div><span id="luke"></span></div>
 		</div>
 		<div class="h-information">
-
-                    <img :src="this.$store.state.themeObj.head_portrait?this.$store.state.themeObj.head_portrait:'static/img/tou.png'" alt="">
-
+            <img :src="this.$store.state.themeObj.head_portrait?this.$store.state.themeObj.head_portrait:'static/img/tou.png'" alt="">
 			<h2 class="h-description">
-
-                        {{this.$store.state.themeObj.autograph?this.$store.state.themeObj.autograph:"三更灯火五更鸡，正是男儿读书时"}}
-
-                </h2>
+            	<!-- {{this.$store.state.themeObj.autograph ? this.$store.state.themeObj.autograph : "三更灯火五更鸡，正是男儿读书时"}} -->
+				<p>{{ sentence !== '' ? sentence : ":D 获取中..."}}</p>
+			</h2>
 		</div>
 	</div>
 </div>
@@ -57,9 +54,8 @@
 import {logout} from '../api/user'
 import {removeToken} from '../utils/auth'
 import {getCategoryList} from '../api/category'
-import {
-	Typeit
-} from '../utils/plug.js'
+import {Typeit} from '../utils/plug.js'
+import {getSentence} from '../utils/sentence.js'
 export default {
 	data() { //选项 / 数据
 		return {
@@ -73,7 +69,8 @@ export default {
 			input: '', //input输入内容
 			headBg: 'url(static/img/headbg05.jpg)', //头部背景图
 			headTou: '', //头像
-			projectList: '' //项目列表
+			projectList: '', //项目列表
+			sentence: '', // 每日一句
 		}
 	},
 	watch: {
@@ -194,10 +191,7 @@ export default {
 			}
 		}
 		document.addEventListener(visibilityChangeEvent, onVisibilityChange);
-		// console.log();
 		this.routeChange();
-
-
 	},
 	mounted() { //页面元素加载完成
 		var that = this;
@@ -205,6 +199,7 @@ export default {
 			Typeit(that.$store.state.themeObj.user_start, "#luke"); //打字机效果
 			clearTimeout(timer);
 		}, 500);
+		this.sentence = getSentence();// 每日一句
 	}
 }
 </script>
