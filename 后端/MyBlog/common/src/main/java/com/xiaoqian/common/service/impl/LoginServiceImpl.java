@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -52,7 +53,8 @@ public class LoginServiceImpl implements ILoginService {
         Long userId = loginUser.getUser().getId();
         String jwt = JwtUtils.createJWT(userId.toString());
         // 5. 把用户信息存入 redis
-        redisTemplate.opsForValue().set(RedisConstants.REDIS_LOGIN_USER_PREFIX + userId, loginUser);
+        redisTemplate.opsForValue().set(RedisConstants.REDIS_LOGIN_USER_PREFIX + userId, loginUser,
+                                        RedisConstants.REDIS_LOGIN_USER_ALIVE_TIME, TimeUnit.MILLISECONDS);
         // 6. 封装 token和用户信息返回
         LoginUserInfo userInfo = BeanCopyUtils.copyBean(loginUser.getUser(), LoginUserInfo.class);
         LoginUserVo loginUserVo = new LoginUserVo(jwt, userInfo);
