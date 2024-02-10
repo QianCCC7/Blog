@@ -1,0 +1,25 @@
+.typed-out-container {
+    display: inline-block;
+}
+.typed-out{
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    font-size: 1.6rem;
+    width: 0;
+    animation: 
+        typing 1s steps(20, end) forwards, /* 文字打字机动画 */
+        blink .8s infinite; /* 光标闪烁动画 */
+}
+
+/* 文字打字机动画 */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* 光标闪烁动画 */
+@keyframes blink {
+    from { border-color: transparent }
+    to { border-color: orange; }
+}

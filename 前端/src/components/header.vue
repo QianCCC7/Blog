@@ -43,8 +43,9 @@
 		<div class="h-information">
             <img :src="this.$store.state.themeObj.head_portrait?this.$store.state.themeObj.head_portrait:'static/img/tou.png'" alt="">
 			<h2 class="h-description">
-            	<!-- {{this.$store.state.themeObj.autograph ? this.$store.state.themeObj.autograph : "三更灯火五更鸡，正是男儿读书时"}} -->
-				<p>{{ sentence !== '' ? sentence : ":D 获取中..."}}</p>
+				<div class="typed-out-container">
+					<p class="typed-out">{{ sentence !== '' ? sentence : ":D 每日一言获取中..."}}</p>
+				</div>
 			</h2>
 		</div>
 	</div>
@@ -204,9 +205,10 @@ export default {
 }
 </script>
 
+
 <style>
 /*********头部导航栏********/
-
+	@import '../assets/css/typeout.css';
 /*头部导航栏盒子*/
 
 .headBack {
