@@ -10,4 +10,8 @@ public class LoginException extends SystemException {
         super(HttpCodeEnum.REQUIRE_USERNAME_AND_PASSWORD);
     }
 
+    public LoginException(HttpCodeEnum httpCodeEnum, String msg) {
+        super(httpCodeEnum, msg);
+    }
+
 }
