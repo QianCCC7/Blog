@@ -5,9 +5,7 @@
         <div class="container">
             <div v-show="isEdit" class="tcommonBox">
                 <header>
-                    <h1>
-                            编辑个人资料
-                    </h1>
+                    <h1>编辑个人资料</h1>
                 </header>
                 <section>
                     <ul class="userInfoBox">
@@ -16,11 +14,13 @@
                             <el-upload
                               class="avatar-uploader"
                               name="img"
-                              :action="uploadURL"
+                              action=""
                               :show-file-list="false"
                               :on-success="handleAvatarSuccess"
-                              :before-upload="beforeAvatarUpload">
-                              <img   v-if="userInfoObj.avatar" :src="userInfoObj.avatar?userInfoObj.avatar:'static/img/tou.jpg'"  :onerror="$store.state.errorImg" class="avatar">
+                              :before-upload="beforeAvatarUpload"
+                              :http-request="handleUploadAvatar"
+                              >
+                              <img v-if="userInfoObj.avatar" :src="userInfoObj.avatar?'//'+userInfoObj.avatar:'static/img/tou.jpg'"  :onerror="$store.state.errorImg" class="avatar">
                               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                               <div slot="tip" class="el-upload__tip">点击上传头像，只能上传jpg/png文件，且不超过1mb</div>
                             </el-upload>
@@ -40,8 +40,6 @@
                               <el-radio class="radio" v-model="userInfoObj.sex" label="1">女</el-radio>
                             </template>
                         </li>
-
-
                     </ul>
                     <div class=" saveInfobtn">
                         <a class="tcolors-bg"  href="javascript:void(0);" @click="isEdit=!isEdit">返 回</a>
@@ -92,6 +90,8 @@
 import header from '../components/header.vue'
 import {getUserInfo,savaUserInfo} from '../api/user.js'//获取用户信息，保存用户信息
 import store from '../store'
+import axios from 'axios'
+import {getToken} from '../utils/auth.js'
     export default {
         name: 'UserInfo',
         data() { //选项 / 数据
@@ -103,19 +103,9 @@ import store from '../store'
             }
         },
         methods: { //事件处理器
-            handleAvatarSuccess(res, file) {//上传头像
-                if(res.code == 200){
-                    this.userInfoObj.avatar = res.data;
-                    this.userInfoObj.head_start = 1;
-                }else{
-                    this.$message.error('上传图片失败');
-                }
-
-            },
             beforeAvatarUpload(file) {//判断头像大小
                 const isJPG = file.type == 'image/png'||file.type=='image/jpg'||file.type=='image/jpeg';
                 const isLt2M = file.size / 1024 / 1024 < 1;
-                // console.log(file);
                 if (!isJPG) {
                   this.$message.error('上传头像图片只能是 JPG/JPEG/PNG 格式!');
                 }
@@ -124,16 +114,12 @@ import store from '../store'
                 }
                 return isJPG && isLt2M;
             },
-
             saveInfoFun: function(){//保存编辑的用户信息
                 var that = this;
-
                 if(!that.userInfoObj.nickName){ //昵称为必填
                      that.$message.error('昵称为必填项，请填写昵称');
                      return;
                 }
-
-
                 savaUserInfo(that.userInfoObj).then((response)=>{//保存信息接口，返回展示页
                     that.$message.success( '保存成功！');
                     that.isEdit = false;
@@ -154,8 +140,32 @@ import store from '../store'
                 }else{
                     that.haslogin = false;
                 }
-
-            }
+            },
+            handleUploadAvatar(param) {
+                let fileObj = param.file // 相当于input里取得的files
+                let fd = new FormData()// FormData 对象
+                fd.append('img', fileObj)// 文件对象
+                let url = this.uploadURL
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Token: getToken()
+                    }
+                }
+                axios.post(url, fd, config).then(res => {
+                    if(res.status === 200){
+                        param.onSuccess(res.data)// 将服务端返回的数据传递给文件上传成功的函数
+                    }
+                })
+            },
+            handleAvatarSuccess(res, file) {//上传头像成功
+                if(res.code == 200){
+                    this.userInfoObj.avatar = res.data;
+                    // this.userInfoObj.head_start = 1;
+                }else{
+                    this.$message.error('上传图片失败');
+                }
+            },
         },
         components: { //定义组件
             'wbc-nav':header,
