@@ -13,7 +13,10 @@ public enum HttpCodeEnum {
     EMAIL_EXIST(503, "邮箱已存在"),
     REQUIRE_USERNAME_AND_PASSWORD(504, "必需填写用户名和密码"),
     LOGIN_ERROR(505,"用户名或密码错误"),
-    COMMENT_NOT_NULL(506, "评论内容不能为空")
+    COMMENT_NOT_NULL(506, "评论内容不能为空"),
+    FILE_NOT_NULL(507, "上传的文件不能为空"),
+    FILE_TYPE_ERROR(508, "上传的文件类型错误，请上传.png文件或.jpg文件"),
+    FILE_UPLOAD_ERROR(509, "文件上传失败"),
     ;
     int code;
     String msg;

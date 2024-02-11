@@ -11,9 +11,9 @@ spring:
     # 文件上传
     multipart:
       # 单个上传文件的最大允许大小
-      max-file-size: 20MB
+      max-file-size: 1MB
       # HTTP请求中包含的所有文件的总大小的最大允许值
-      max-request-size: 20MB
+      max-request-size: 1MB
   redis:
     port: 6379
     host: 192.168.150.101
@@ -37,3 +37,4 @@ oss:
   accessKey: zO8n5Aa6nmCI-TZ8MxLKPF7kpiCrhqhGKH_1kNhQ
   secretKey: F__W48PpRyXDO3S3vNqGWc7Lnh-5lrJ3nqJQm3Og
   bucket: xiaoqian-blog
+  external-domain-name: s8of2j3qd.hn-bkt.clouddn.com

@@ -8,21 +8,19 @@ import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
-import lombok.Data;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 
 import java.io.*;
 
 @SpringBootTest
-@Component
-@Data
-@ConfigurationProperties(prefix = "oss")
 public class OSSTest {
+    @Value("${oss.accessKey}")
     private String accessKey;
+    @Value("${oss.secretKey}")
     private String secretKey;
+    @Value("${oss.bucket}")
     private String bucket;// 存储空间的名字
 
     @Test

@@ -1,6 +1,8 @@
 package com.xiaoqian.common.service.impl;
 
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.LoginUserDTO;
+import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.pojo.User;
 import com.xiaoqian.common.domain.vo.UserDetailVo;
 import com.xiaoqian.common.enums.HttpCodeEnum;
@@ -41,5 +43,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         // 3. 数据封装
         return ResponseResult.okResult(BeanCopyUtils.copyBean(user, UserDetailVo.class));
+    }
+
+    /**
+     * 更新当前登录用户信息
+     */
+    @Override
+    public ResponseResult<Object> updateUserInfo(UserDTO user) {
+        User newUser = BeanCopyUtils.copyBean(user, User.class);
+        newUser.setId(user.getId());
+        updateById(newUser);
+        return ResponseResult.okResult();
     }
 }

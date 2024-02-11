@@ -2,7 +2,7 @@ package com.xiaoqian.common.service.impl;
 
 import com.xiaoqian.common.constants.RedisConstants;
 import com.xiaoqian.common.domain.ResponseResult;
-import com.xiaoqian.common.domain.dto.UserDTO;
+import com.xiaoqian.common.domain.dto.LoginUserDTO;
 import com.xiaoqian.common.domain.pojo.LoginUser;
 import com.xiaoqian.common.domain.vo.LoginUserInfo;
 import com.xiaoqian.common.domain.vo.LoginUserVo;
@@ -35,7 +35,7 @@ public class LoginServiceImpl implements ILoginService {
      * 用户登录
      */
     @Override
-    public ResponseResult<LoginUserVo> login(UserDTO user) {
+    public ResponseResult<LoginUserVo> login(LoginUserDTO user) {
         if (Objects.isNull(user) || !StringUtils.hasText(user.getUsername()) || !StringUtils.hasText(user.getPassword())) {
             throw new LoginException();
         }

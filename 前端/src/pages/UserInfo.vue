@@ -60,7 +60,7 @@
                         <li class="avatarlist">
                             <span class="leftTitle">头像</span>
                             <div class="avatar-uploader">
-                                <img  :src="userInfoObj.avatar?userInfoObj.avatar:'static/img/tou.jpg'"   :onerror="$store.state.errorImg" class="avatar">
+                                <img  :src="userInfoObj.avatar?'//'+userInfoObj.avatar:'static/img/tou.jpg'"   :onerror="$store.state.errorImg" class="avatar">
                             </div>
                         </li>
                         <li class="username">

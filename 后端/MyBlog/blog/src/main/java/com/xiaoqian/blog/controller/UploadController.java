@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +20,7 @@ public class UploadController {
 
     @ApiOperation("上传文件")
     @PostMapping
-    public ResponseResult<Object> upload(MultipartFile multipartFile) {
+    public ResponseResult<Object> upload(@RequestPart("img") MultipartFile multipartFile) {
         return uploadService.upload(multipartFile);
     }
 }

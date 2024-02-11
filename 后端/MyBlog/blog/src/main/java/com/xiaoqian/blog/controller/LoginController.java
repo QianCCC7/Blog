@@ -1,7 +1,7 @@
 package com.xiaoqian.blog.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
-import com.xiaoqian.common.domain.dto.UserDTO;
+import com.xiaoqian.common.domain.dto.LoginUserDTO;
 import com.xiaoqian.common.domain.vo.LoginUserVo;
 import com.xiaoqian.common.service.ILoginService;
 import io.swagger.annotations.Api;
@@ -17,8 +17,8 @@ public class LoginController {
 
     @ApiOperation("用户登录接口")
     @PostMapping("/login")
-    public ResponseResult<LoginUserVo> login(@RequestBody UserDTO userDTO) {
-        return loginService.login(userDTO);
+    public ResponseResult<LoginUserVo> login(@RequestBody LoginUserDTO loginUserDTO) {
+        return loginService.login(loginUserDTO);
     }
 
     @ApiOperation("用户退出登录接口")
