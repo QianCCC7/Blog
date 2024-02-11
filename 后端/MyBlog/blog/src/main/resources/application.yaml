@@ -33,3 +33,7 @@ mybatis-plus:
 logging:
   level:
     com.xiaoqian: debug
+oss:
+  accessKey: zO8n5Aa6nmCI-TZ8MxLKPF7kpiCrhqhGKH_1kNhQ
+  secretKey: F__W48PpRyXDO3S3vNqGWc7Lnh-5lrJ3nqJQm3Og
+  bucket: xiaoqian-blog
