@@ -30,15 +30,33 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
     }
 
     public void setCreator(MetaObject metaObject) {
-        Long userId = UserContext.getUserId();
+        Long userId;
+        try {
+            // 当用户处于注册状态时，仍然需要字段填充 createBy字段，该字段会从 principal中获取
+            // 而注册的用户的 principal为字符串 "anonymousUser"，无法转换为 LoginUser对象，所以会爆错
+            // 此时只需要在字段填充时捕获一下异常，并且重新赋值 userId即可
+            userId = UserContext.getUserId();
+        } catch (Exception e) {
+            userId = -1L;
+            e.printStackTrace();
+        }
         this.setFieldValByName("createTime", LocalDateTime.now(), metaObject);
-        this.setFieldValByName("createBy",userId , metaObject);
+        this.setFieldValByName("createBy", userId, metaObject);
         this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
         this.setFieldValByName("updateBy", userId, metaObject);
     }
 
     public void setUpdater(MetaObject metaObject) {
-        Long userId = UserContext.getUserId();
+        Long userId;
+        try {
+            // 当用户处于注册状态时，仍然需要字段填充 createBy字段，该字段会从 principal中获取
+            // 而注册的用户的 principal为字符串 "anonymousUser"，无法转换为 LoginUser对象，所以会爆错
+            // 此时只需要在字段填充时捕获一下异常，并且重新赋值 userId即可
+            userId = UserContext.getUserId();
+        } catch (Exception e) {
+            userId = -1L;
+            e.printStackTrace();
+        }
         this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
         this.setFieldValByName("updateBy", userId, metaObject);
     }
