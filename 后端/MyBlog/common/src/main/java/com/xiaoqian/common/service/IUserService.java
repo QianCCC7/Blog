@@ -2,6 +2,7 @@ package com.xiaoqian.common.service;
 
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.dto.LoginUserDTO;
+import com.xiaoqian.common.domain.dto.RegisterUserDTO;
 import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -20,4 +21,6 @@ public interface IUserService extends IService<User> {
     ResponseResult<UserDetailVo> queryUserInfo();
 
     ResponseResult<Object> updateUserInfo(UserDTO user);
+
+    ResponseResult<Object> register(RegisterUserDTO user);
 }

@@ -2,6 +2,7 @@ package com.xiaoqian.blog.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.dto.LoginUserDTO;
+import com.xiaoqian.common.domain.dto.RegisterUserDTO;
 import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.vo.UserDetailVo;
 import com.xiaoqian.common.service.IUserService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-@Api(tags = "用户信息相关接口")
+@Api(tags = "用户相关接口")
 @RequiredArgsConstructor
 public class UserController {
     private final IUserService userService;
@@ -27,5 +28,11 @@ public class UserController {
     @PutMapping("/userInfo")
     public ResponseResult<Object> updateUserInfo(@RequestBody UserDTO user) {
         return userService.updateUserInfo(user);
+    }
+
+    @ApiOperation("用户注册")
+    @PostMapping("/register")
+    public ResponseResult<Object> register(@RequestBody RegisterUserDTO user) {
+        return userService.register(user);
     }
 }
