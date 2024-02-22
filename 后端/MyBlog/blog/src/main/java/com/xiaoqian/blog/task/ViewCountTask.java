@@ -26,7 +26,7 @@ public class ViewCountTask {
     private final IArticleService articleService;
 
     /**
-     * 更新浏览量的定时任务，时间间隔为 30s
+     * 更新浏览量的定时任务，时间间隔为 15s
      */
     @Scheduled(cron = "0/15 * * * * ?")
     public void UpdateTask() {
