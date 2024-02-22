@@ -49,4 +49,10 @@ public class ArticleController {
     public ResponseResult<ArticleDetailVo> getArticleDetailById(@PathVariable("id") Long id) {
         return articleService.getArticleDetailById(id);
     }
+
+    @ApiOperation("更新文章浏览量")
+    @PutMapping("/updateViewCount/{id}")
+    public ResponseResult<Object> updateViewCount(@PathVariable("id") Long id) {
+        return articleService.updateViewCount(id);
+    }
 }

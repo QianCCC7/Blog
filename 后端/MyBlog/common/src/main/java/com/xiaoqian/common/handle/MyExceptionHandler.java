@@ -18,7 +18,7 @@ public class MyExceptionHandler {
      */
     @ExceptionHandler(LoginException.class)
     public ResponseResult<Object> loginExceptionHandler(LoginException ex) {
-        log.debug("MyExceptionHandler捕捉到登录异常：{}", ex.toString());
+        log.error("MyExceptionHandler捕捉到登录异常：{}", ex.toString());
         return ResponseResult.errorResult(ex.getCode(), ex.getMsg());
     }
 
@@ -27,7 +27,7 @@ public class MyExceptionHandler {
      */
     @ExceptionHandler(UploadException.class)
     public ResponseResult<Object> uploadExceptionHandler(UploadException ex) {
-        log.debug("MyExceptionHandler捕捉到文件上传异常：{}", ex.toString());
+        log.error("MyExceptionHandler捕捉到文件上传异常：{}", ex.toString());
         return ResponseResult.errorResult(ex.getCode(), ex.getMsg());
     }
 
@@ -36,7 +36,7 @@ public class MyExceptionHandler {
      */
     @ExceptionHandler(RegisterException.class)
     public ResponseResult<Object> registerExceptionHandler(RegisterException ex) {
-        log.debug("MyExceptionHandler捕捉到用户注册异常：{}", ex.toString());
+        log.error("MyExceptionHandler捕捉到用户注册异常：{}", ex.toString());
         return ResponseResult.errorResult(ex.getCode(), ex.getMsg());
     }
 
@@ -45,7 +45,7 @@ public class MyExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseResult<Object> otherExceptionHandler(Exception ex) {
-        log.debug("MyExceptionHandler捕捉到其他异常：{}", ex.toString());
+        log.error("MyExceptionHandler捕捉到其他异常：{}", ex.toString());
         return ResponseResult.errorResult(HttpCodeEnum.SYSTEM_ERROR.getCode(), ex.getMessage());
     }
 }

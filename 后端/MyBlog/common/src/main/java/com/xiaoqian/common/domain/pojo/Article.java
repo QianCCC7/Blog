@@ -105,7 +105,4 @@ public class Article implements Serializable {
      */
     @TableField("del_flag")
     private Integer delFlag;
-
-    @TableField(exist = false)
-    private String categoryName;
 }

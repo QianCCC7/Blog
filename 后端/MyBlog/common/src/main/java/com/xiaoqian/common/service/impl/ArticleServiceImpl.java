@@ -2,6 +2,7 @@ package com.xiaoqian.common.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiaoqian.common.constants.RedisConstants;
 import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
@@ -17,12 +18,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.service.ICategoryService;
 import com.xiaoqian.common.utils.BeanCopyUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -32,11 +34,13 @@ import java.util.stream.Collectors;
  * @author QianCCC
  * @since 2023-12-24
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements IArticleService {
 
     private final ICategoryService categoryService;
+    private final RedisTemplate redisTemplate;
 
     /**
      * 查询热门文章(前十条)
@@ -73,15 +77,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .page(pageQuery.toPage(pageQuery.getPageNo(), pageQuery.getPageSize()));
 
         List<Article> records = page.getRecords();
-        if (!CollectionUtils.isEmpty(records)) {
-            // 封装 categoryName
-            records = records.stream()
-                    .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))
-                    .collect(Collectors.toList());
-            List<ArticleVo> articleVos = BeanCopyUtils.copyBeanList(records, ArticleVo.class);
-            return ResponseResult.okResult(new PageVo<>(articleVos, records.size()));
+        if (CollectionUtils.isEmpty(records)) {
+            return ResponseResult.okEmptyResult();
         }
-        return ResponseResult.okEmptyResult();
+        // 封装 categoryName
+        List<ArticleVo> articleVoList = new ArrayList<>(records.size());
+        for (Article article : records) {
+            ArticleVo articleVo = BeanCopyUtils.copyBean(article, ArticleVo.class);
+            articleVo.setCategoryName(categoryService.getById(article.getCategoryId()).getName());
+            articleVoList.add(articleVo);
+        }
+        return ResponseResult.okResult(new PageVo<>(articleVoList, records.size()));
     }
 
     /**
@@ -89,16 +95,36 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public ResponseResult<ArticleDetailVo> getArticleDetailById(Long id) {
+        // 1. 查询指定文章详情
         Article article = getById(id);
         if (Objects.nonNull(article)) {
+            // 2. vo封装
             ArticleDetailVo articleDetailVo = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
+            // 3. 文章类别
             Long categoryId = articleDetailVo.getCategoryId();
             Category category = categoryService.getById(categoryId);
             if (Objects.nonNull(category)) {
                 articleDetailVo.setCategoryName(category.getName());
             }
+            // 4. 文章浏览量
+            Object o = redisTemplate.opsForHash().get(RedisConstants.VIEW_COUNT_KEY, id.toString());
+            Long viewCount = Long.parseLong(Objects.isNull(o) ? "0" : o.toString());
+            articleDetailVo.setViewCount(viewCount);
             return ResponseResult.okResult(articleDetailVo);
         }
         return ResponseResult.okEmptyResult();
+    }
+
+    /**
+     * 更新文章浏览量
+     * 1. 在应用启动时把文章浏览量存储到 Redis中
+     * 2. 每隔 30s把 Redis中的浏览量更新到数据库中
+     * 3. 更新文章浏览量时更新 Redis中的数据
+     * 4. 读取文章浏览量时读取 Redis中的数据
+     */
+    @Override
+    public ResponseResult<Object> updateViewCount(Long id) {
+        redisTemplate.opsForHash().increment(RedisConstants.VIEW_COUNT_KEY, id.toString(), 1);
+        return ResponseResult.okResult();
     }
 }

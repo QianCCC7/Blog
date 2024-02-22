@@ -55,7 +55,7 @@ public class BaseMetaObjectHandler implements MetaObjectHandler {
             userId = UserContext.getUserId();
         } catch (Exception e) {
             userId = -1L;
-            e.printStackTrace();
+            // e.printStackTrace();
         }
         this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
         this.setFieldValByName("updateBy", userId, metaObject);
