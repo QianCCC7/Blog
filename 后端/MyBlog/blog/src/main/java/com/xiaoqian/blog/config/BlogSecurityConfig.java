@@ -1,4 +1,4 @@
-package com.xiaoqian.common.config;
+package com.xiaoqian.blog.config;
 
 import com.xiaoqian.common.filter.JwtAuthenticationFilter;
 import com.xiaoqian.common.handle.AccessDeniedHandlerImpl;
@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @RequiredArgsConstructor
-public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+public class BlogSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationEntryPointImpl authenticationEntryPoint;
     private final AccessDeniedHandlerImpl accessDeniedHandler;
