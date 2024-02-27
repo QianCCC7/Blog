@@ -44,6 +44,8 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/user/login").permitAll()
+                // 允许访问API接口文档
+                .antMatchers("/doc.html", "/webjars/**", "/v2/api-docs", "/swagger-resources/**").permitAll()
                 // 其他请求全部需要认证
                 .anyRequest().authenticated();
         // 添加 Jwt认证过滤器
