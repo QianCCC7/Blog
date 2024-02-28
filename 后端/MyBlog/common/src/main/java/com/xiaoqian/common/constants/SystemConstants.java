@@ -32,14 +32,19 @@ public class SystemConstants {
     public static final Integer ROOT_COMMENT_SIGN = -1;
 
     /**
-     * 菜单类型 C
+     * 菜单类型 C：菜单
      */
     public static final String MENU_TYPE_C = "C";
 
     /**
-     * 菜单类型 F
+     * 菜单类型 F：按钮
      */
     public static final String MENU_TYPE_F = "F";
+
+    /**
+     * 菜单类型 M：目录
+     */
+    public static final String MENU_TYPE_M = "M";
 
     /**
      * 菜单状态

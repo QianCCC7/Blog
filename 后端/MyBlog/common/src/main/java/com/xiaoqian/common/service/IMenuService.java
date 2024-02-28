@@ -16,4 +16,8 @@ import java.util.List;
 public interface IMenuService extends IService<Menu> {
 
     List<String> queryPermissionsInfoByUserId(Long userId);
+
+    List<Menu> queryMenuInfoByAdmin();
+
+    List<Menu> queryMenuInfoByUserId(Long userId);
 }

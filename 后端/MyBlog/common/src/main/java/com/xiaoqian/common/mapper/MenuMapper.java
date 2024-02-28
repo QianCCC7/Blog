@@ -17,4 +17,6 @@ import java.util.List;
 public interface MenuMapper extends BaseMapper<Menu> {
 
     List<Menu> queryMenuInfoByRoleIds(@Param("roleIds") List<Long> roleIds);
+
+    List<Menu> queryMenuInfoByRoleIds2(@Param("roleIds") List<Long> roleIds);
 }
