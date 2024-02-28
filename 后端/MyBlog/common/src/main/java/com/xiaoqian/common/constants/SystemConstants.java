@@ -30,4 +30,19 @@ public class SystemConstants {
      * 根评论标识
      */
     public static final Integer ROOT_COMMENT_SIGN = -1;
+
+    /**
+     * 菜单类型 C
+     */
+    public static final String MENU_TYPE_C = "C";
+
+    /**
+     * 菜单类型 F
+     */
+    public static final String MENU_TYPE_F = "F";
+
+    /**
+     * 菜单状态
+     */
+    public static final Integer MENU_STATUS_NORMAL = 0;
 }

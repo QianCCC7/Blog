@@ -1,7 +1,6 @@
 package com.xiaoqian.common.service;
 
 import com.xiaoqian.common.domain.ResponseResult;
-import com.xiaoqian.common.domain.dto.LoginUserDTO;
 import com.xiaoqian.common.domain.dto.RegisterUserDTO;
 import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.pojo.User;
