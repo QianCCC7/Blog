@@ -2,7 +2,6 @@ package com.xiaoqian.admin.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.vo.AdminUserInfo;
-import com.xiaoqian.common.domain.vo.MenuVo;
 import com.xiaoqian.common.domain.vo.RouterVo;
 import com.xiaoqian.common.service.IAdminUserService;
 import io.swagger.annotations.Api;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 @Api(tags = "管理员相关接口")
