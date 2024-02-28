@@ -18,10 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     private final ILoginService loginService;
 
-    @ApiOperation("管理员登录接口")
+    @ApiOperation("管理员登录")
     @PostMapping("/user/login")
     @SystemLog(businessDescription = "管理员登录接口")
     public ResponseResult<LoginUserVo> login(@RequestBody LoginUserDTO loginUserDTO) {
         return loginService.login(loginUserDTO);
     }
+
+    @ApiOperation("管理员退出登录")
+    @PostMapping("/user/logout")
+    public ResponseResult<Object> logout() {
+        return loginService.logout();
+    }
+
 }
