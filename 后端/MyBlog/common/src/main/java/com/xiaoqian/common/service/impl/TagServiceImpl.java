@@ -7,6 +7,7 @@ import com.xiaoqian.common.domain.pojo.Tag;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.TagVo;
 import com.xiaoqian.common.enums.HttpCodeEnum;
+import com.xiaoqian.common.exception.SystemException;
 import com.xiaoqian.common.exception.TagException;
 import com.xiaoqian.common.mapper.TagMapper;
 import com.xiaoqian.common.query.PageQuery;
@@ -59,6 +60,18 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
         }
         Tag copyBean = BeanCopyUtils.copyBean(tag, Tag.class);
         save(copyBean);
+        return ResponseResult.okResult();
+    }
+
+    /**
+     * 删除标签
+     */
+    @Override
+    public ResponseResult<Object> deleteTag(Long tagId) {
+        if (tagId == null) {
+            throw new SystemException(HttpCodeEnum.SYSTEM_ERROR, "标签id为空");
+        }
+        removeById(tagId);
         return ResponseResult.okResult();
     }
 }

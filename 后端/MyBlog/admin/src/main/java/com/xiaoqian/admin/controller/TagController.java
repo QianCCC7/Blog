@@ -39,4 +39,10 @@ public class TagController {
     public ResponseResult<Object> addTag(@RequestBody TagDTO tag) {
         return tagService.addTag(tag);
     }
+
+    @ApiOperation("删除标签")
+    @DeleteMapping("/{id}")
+    public ResponseResult<Object> deleteTag(@PathVariable("id") Long tagId) {
+        return tagService.deleteTag(tagId);
+    }
 }

@@ -21,4 +21,6 @@ public interface ITagService extends IService<Tag> {
     ResponseResult<PageVo<TagVo>> queryTagPage(PageQuery pageQuery, TagDTO tag);
 
     ResponseResult<Object> addTag(TagDTO tag);
+
+    ResponseResult<Object> deleteTag(Long tagId);
 }
