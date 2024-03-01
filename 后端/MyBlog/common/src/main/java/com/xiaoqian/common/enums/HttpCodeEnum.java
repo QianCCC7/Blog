@@ -16,6 +16,8 @@ public enum HttpCodeEnum {
     FILE_NOT_NULL(507, "上传的文件不能为空"),
     FILE_TYPE_ERROR(508, "上传的文件类型错误，请上传.png文件或.jpg文件"),
     FILE_UPLOAD_ERROR(509, "文件上传失败"),
+
+    TAG_NOT_NULL(510, "标签名称不能为空")
     ;
     int code;
     String msg;

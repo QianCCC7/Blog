@@ -6,6 +6,8 @@ import com.xiaoqian.common.domain.dto.TagDTO;
 import com.xiaoqian.common.domain.pojo.Tag;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.TagVo;
+import com.xiaoqian.common.enums.HttpCodeEnum;
+import com.xiaoqian.common.exception.TagException;
 import com.xiaoqian.common.mapper.TagMapper;
 import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.ITagService;
@@ -44,5 +46,19 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
         }
         List<TagVo> tagVoList = BeanCopyUtils.copyBeanList(records, TagVo.class);
         return ResponseResult.okResult(new PageVo<>(tagVoList, records.size()));
+    }
+
+    /**
+     * 新增标签
+     */
+    @Override
+    public ResponseResult<Object> addTag(TagDTO tag) {
+        if (tag == null || !StringUtils.hasText(tag.getName())
+                || !StringUtils.hasText(tag.getRemark())) {
+            throw new TagException(HttpCodeEnum.TAG_NOT_NULL);
+        }
+        Tag copyBean = BeanCopyUtils.copyBean(tag, Tag.class);
+        save(copyBean);
+        return ResponseResult.okResult();
     }
 }

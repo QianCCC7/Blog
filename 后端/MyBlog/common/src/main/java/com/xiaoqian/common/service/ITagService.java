@@ -19,4 +19,6 @@ import com.xiaoqian.common.query.PageQuery;
 public interface ITagService extends IService<Tag> {
 
     ResponseResult<PageVo<TagVo>> queryTagPage(PageQuery pageQuery, TagDTO tag);
+
+    ResponseResult<Object> addTag(TagDTO tag);
 }

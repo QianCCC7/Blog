@@ -10,11 +10,7 @@ import com.xiaoqian.common.service.ITagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -36,5 +32,11 @@ public class TagController {
     public ResponseResult<PageVo<TagVo>> queryTagPage(PageQuery pageQuery,
                                                       TagDTO tag) {
         return tagService.queryTagPage(pageQuery, tag);
+    }
+
+    @ApiOperation("新增标签")
+    @PostMapping
+    public ResponseResult<Object> addTag(@RequestBody TagDTO tag) {
+        return tagService.addTag(tag);
     }
 }
