@@ -74,4 +74,29 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
         removeById(tagId);
         return ResponseResult.okResult();
     }
+
+    /**
+     * 根据id查询指定标签
+     */
+    @Override
+    public ResponseResult<TagVo> getTagInfo(Long tagId) {
+        if (tagId == null) {
+            throw new SystemException(HttpCodeEnum.SYSTEM_ERROR, "标签id为空");
+        }
+        Tag tag = getById(tagId);
+        return ResponseResult.okResult(BeanCopyUtils.copyBean(tag, TagVo.class));
+    }
+
+    /**
+     * 修改标签
+     */
+    @Override
+    public ResponseResult<Object> updateTag(TagDTO tag) {
+        if (tag == null || !StringUtils.hasText(tag.getName())
+                || !StringUtils.hasText(tag.getRemark())) {
+            throw new TagException(HttpCodeEnum.TAG_NOT_NULL);
+        }
+        updateById(BeanCopyUtils.copyBean(tag, Tag.class));
+        return ResponseResult.okResult();
+    }
 }

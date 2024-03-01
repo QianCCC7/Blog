@@ -45,4 +45,16 @@ public class TagController {
     public ResponseResult<Object> deleteTag(@PathVariable("id") Long tagId) {
         return tagService.deleteTag(tagId);
     }
+
+    @ApiOperation("根据id查询指定标签")
+    @GetMapping("/{id}")
+    public ResponseResult<TagVo> getTagInfo(@PathVariable("id") Long tagId) {
+        return tagService.getTagInfo(tagId);
+    }
+
+    @ApiOperation("修改标签")
+    @PutMapping()
+    public ResponseResult<Object> updateTag(@RequestBody TagDTO tag) {
+        return tagService.updateTag(tag);
+    }
 }
