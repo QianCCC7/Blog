@@ -1,0 +1,18 @@
+package com.xiaoqian.common.domain.dto;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ApiModel("标签实体")
+public class TagDTO {
+    @ApiModelProperty("标签名称")
+    private String name;
+    @ApiModelProperty("标签备注")
+    private String remark;
+}
