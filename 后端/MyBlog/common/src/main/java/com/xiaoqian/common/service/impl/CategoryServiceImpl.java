@@ -1,5 +1,6 @@
 package com.xiaoqian.common.service.impl;
 
+import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Category;
 import com.xiaoqian.common.domain.vo.CategoryVo;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -38,5 +40,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             return ResponseResult.okResult(categoryVos);
         }
         return ResponseResult.okEmptyResult();
+    }
+
+    /**
+     * 写博文时需要查询所有可用的文章分类
+     */
+    @Override
+    public List<Category> queryAllCategories() {
+        List<Category> categoryList = lambdaQuery().eq(Category::getStatus, SystemConstants.CATEGORY_STATUS_NORMAL).list();
+        return CollectionUtils.isEmpty(categoryList) ? new ArrayList<>() : categoryList;
     }
 }

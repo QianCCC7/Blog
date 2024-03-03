@@ -18,4 +18,6 @@ import java.util.List;
 public interface ICategoryService extends IService<Category> {
 
     ResponseResult<List<CategoryVo>> getCategoryList();
+
+    List<Category> queryAllCategories();
 }

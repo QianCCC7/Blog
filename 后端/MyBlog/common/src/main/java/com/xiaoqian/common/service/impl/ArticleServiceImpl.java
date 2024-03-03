@@ -7,10 +7,7 @@ import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
 import com.xiaoqian.common.domain.pojo.Category;
-import com.xiaoqian.common.domain.vo.ArticleDetailVo;
-import com.xiaoqian.common.domain.vo.ArticleVo;
-import com.xiaoqian.common.domain.vo.HotArticleVo;
-import com.xiaoqian.common.domain.vo.PageVo;
+import com.xiaoqian.common.domain.vo.*;
 import com.xiaoqian.common.mapper.ArticleMapper;
 import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.IArticleService;
@@ -126,5 +123,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult<Object> updateViewCount(Long id) {
         redisTemplate.opsForHash().increment(RedisConstants.VIEW_COUNT_KEY, id.toString(), 1);
         return ResponseResult.okResult();
+    }
+
+    /**
+     * 写博文时需要查询所有可用的文章分类
+     */
+    @Override
+    public ResponseResult<List<CategoryVo>> queryAllCategories() {
+        List<Category> categoryList = categoryService.queryAllCategories();
+        if (CollectionUtils.isEmpty(categoryList)) {
+            return ResponseResult.okResult(new ArrayList<>());
+        }
+        return ResponseResult.okResult(BeanCopyUtils.copyBeanList(categoryList, CategoryVo.class));
     }
 }

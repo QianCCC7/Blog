@@ -3,10 +3,7 @@ package com.xiaoqian.common.service;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.xiaoqian.common.domain.vo.ArticleDetailVo;
-import com.xiaoqian.common.domain.vo.ArticleVo;
-import com.xiaoqian.common.domain.vo.HotArticleVo;
-import com.xiaoqian.common.domain.vo.PageVo;
+import com.xiaoqian.common.domain.vo.*;
 import com.xiaoqian.common.query.PageQuery;
 
 import java.util.List;
@@ -28,4 +25,6 @@ public interface IArticleService extends IService<Article> {
     ResponseResult<ArticleDetailVo> getArticleDetailById(Long id);
 
     ResponseResult<Object> updateViewCount(Long id);
+
+    ResponseResult<List<CategoryVo>> queryAllCategories();
 }
