@@ -2,6 +2,7 @@ package com.xiaoqian.admin.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.vo.CategoryVo;
+import com.xiaoqian.common.domain.vo.TagVo;
 import com.xiaoqian.common.service.IArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,5 +24,11 @@ public class ArticleController {
     @GetMapping("/category/listAllCategory")
     public ResponseResult<List<CategoryVo>> queryAllCategories() {
         return articleService.queryAllCategories();
+    }
+
+    @ApiOperation("查询可用的文章标签")
+    @GetMapping("/tag/listAllTag")
+    public ResponseResult<List<TagVo>> queryAllTags() {
+        return articleService.queryAllTags();
     }
 }

@@ -99,4 +99,12 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
         updateById(BeanCopyUtils.copyBean(tag, Tag.class));
         return ResponseResult.okResult();
     }
+
+    /**
+     * 写博文时需要查询所有可用的文章分类
+     */
+    @Override
+    public List<Tag> queryAllTags() {
+        return list();
+    }
 }

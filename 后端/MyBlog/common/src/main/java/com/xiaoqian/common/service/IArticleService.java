@@ -27,4 +27,6 @@ public interface IArticleService extends IService<Article> {
     ResponseResult<Object> updateViewCount(Long id);
 
     ResponseResult<List<CategoryVo>> queryAllCategories();
+
+    ResponseResult<List<TagVo>> queryAllTags();
 }

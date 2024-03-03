@@ -8,6 +8,8 @@ import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.TagVo;
 import com.xiaoqian.common.query.PageQuery;
 
+import java.util.List;
+
 /**
  * <p>
  * 标签 服务类
@@ -27,4 +29,6 @@ public interface ITagService extends IService<Tag> {
     ResponseResult<TagVo> getTagInfo(Long tagId);
 
     ResponseResult<Object> updateTag(TagDTO tag);
+
+    List<Tag> queryAllTags();
 }

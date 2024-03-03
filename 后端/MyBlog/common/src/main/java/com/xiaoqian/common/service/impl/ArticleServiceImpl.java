@@ -7,12 +7,14 @@ import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Article;
 import com.xiaoqian.common.domain.pojo.Category;
+import com.xiaoqian.common.domain.pojo.Tag;
 import com.xiaoqian.common.domain.vo.*;
 import com.xiaoqian.common.mapper.ArticleMapper;
 import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.IArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.service.ICategoryService;
+import com.xiaoqian.common.service.ITagService;
 import com.xiaoqian.common.utils.BeanCopyUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -38,6 +40,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     private final ICategoryService categoryService;
     private final RedisTemplate redisTemplate;
+    private final ITagService tagService;
 
     /**
      * 查询热门文章(前十条)
@@ -135,5 +138,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             return ResponseResult.okResult(new ArrayList<>());
         }
         return ResponseResult.okResult(BeanCopyUtils.copyBeanList(categoryList, CategoryVo.class));
+    }
+
+    /**
+     * 写博文时需要查询所有可用的文章分类
+     */
+    @Override
+    public ResponseResult<List<TagVo>> queryAllTags() {
+        List<Tag> tagList = tagService.queryAllTags();
+        return ResponseResult.okResult(
+                CollectionUtils.isEmpty(tagList) ?
+                new ArrayList<>() : BeanCopyUtils.copyBeanList(tagList, TagVo.class));
     }
 }
