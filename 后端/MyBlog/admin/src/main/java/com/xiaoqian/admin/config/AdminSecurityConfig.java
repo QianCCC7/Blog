@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,8 +45,6 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/user/login").permitAll()
-                // 允许访问API接口文档
-                .antMatchers("/doc.html", "/webjars/**", "/v2/api-docs", "/swagger-resources/**").permitAll()
                 // 其他请求全部需要认证
                 .anyRequest().authenticated();
         // 添加 Jwt认证过滤器
@@ -57,5 +56,12 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout().disable();// 关闭 SpringSecurity默认的退出登录功能
         //允许跨域
         http.cors();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // 允许访问API接口文档
+        web.ignoring().antMatchers("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**",
+                "/api", "/api-docs", "/api-docs/**", "/doc.html/**");
     }
 }
