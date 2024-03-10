@@ -32,6 +32,7 @@ public class ArticleController {
         return articleService.queryAllTags();
     }
 
+    @ApiOperation("上传文章缩略图")
     @PostMapping("/upload")
     public ResponseResult<Object> upload(@RequestPart("img")MultipartFile multipartFile) {
         return uploadService.upload(multipartFile);
