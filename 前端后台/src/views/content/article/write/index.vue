@@ -128,7 +128,6 @@ export default {
     $route: {
       handler: function(route) {
         this.aId = route.query && route.query.id
-        console.log(this.aId)
       },
       immediate: true
     }
@@ -143,7 +142,7 @@ export default {
     getArticle() {
       getArticle(this.aId).then(response => {
         this.form = response
-        this.fileList.push({ name: '缩略图', url: response.thumbnail })
+        this.fileList.push({ name: '缩略图', url: '//' + response.thumbnail })
       })
     },
     handleSave() {
@@ -173,9 +172,7 @@ export default {
     handleUpload(img) {
       uploadImg(img.file).then(response => {
         this.form.thumbnail = response
-        this.fileList.push({ name: img.file.name, url: response })
-        console.log(this.fileList[0].url)
-        console.log('fileList = ' + this.fileList)
+        this.fileList.push({ name: img.file.name, url: '//' + response })
       }).catch(error => {
         this.$message.error(error.msg)
       })
