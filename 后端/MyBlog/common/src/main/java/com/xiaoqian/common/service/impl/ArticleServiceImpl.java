@@ -5,25 +5,32 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.constants.RedisConstants;
 import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.ArticleDTO;
 import com.xiaoqian.common.domain.pojo.Article;
+import com.xiaoqian.common.domain.pojo.ArticleTag;
 import com.xiaoqian.common.domain.pojo.Category;
 import com.xiaoqian.common.domain.pojo.Tag;
 import com.xiaoqian.common.domain.vo.*;
+import com.xiaoqian.common.enums.HttpCodeEnum;
+import com.xiaoqian.common.exception.ArticleException;
 import com.xiaoqian.common.mapper.ArticleMapper;
 import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.IArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xiaoqian.common.service.IArticleTagService;
 import com.xiaoqian.common.service.ICategoryService;
 import com.xiaoqian.common.service.ITagService;
 import com.xiaoqian.common.utils.BeanCopyUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -41,6 +48,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private final ICategoryService categoryService;
     private final RedisTemplate redisTemplate;
     private final ITagService tagService;
+    private final IArticleTagService articleTagService;
 
     /**
      * 查询热门文章(前十条)
@@ -149,5 +157,28 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return ResponseResult.okResult(
                 CollectionUtils.isEmpty(tagList) ?
                 new ArrayList<>() : BeanCopyUtils.copyBeanList(tagList, TagVo.class));
+    }
+
+    /**
+     * 新增博文
+     */
+    @Transactional
+    @Override
+    public ResponseResult<Object> postArticle(ArticleDTO articleDTO) {
+        // 1. 数据校验
+        if (Objects.isNull(articleDTO)) {
+            throw new ArticleException(HttpCodeEnum.ARTICLE_NOT_NULL);
+        }
+        // 2. 属性拷贝
+        Article article = BeanCopyUtils.copyBean(articleDTO, Article.class);
+        // 3. 写入数据库
+        save(article);
+        // 4. 更新关联表
+        Long articleId = article.getId();
+        List<ArticleTag> articleTagList = articleDTO.getTags().stream()
+                .map(tagId -> new ArticleTag().setArticleId(articleId).setTagId(tagId))
+                .collect(Collectors.toList());
+        articleTagService.saveBatch(articleTagList);
+        return ResponseResult.okResult();
     }
 }

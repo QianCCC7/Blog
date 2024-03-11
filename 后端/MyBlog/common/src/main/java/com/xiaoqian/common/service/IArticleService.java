@@ -1,6 +1,7 @@
 package com.xiaoqian.common.service;
 
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.ArticleDTO;
 import com.xiaoqian.common.domain.pojo.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaoqian.common.domain.vo.*;
@@ -29,4 +30,6 @@ public interface IArticleService extends IService<Article> {
     ResponseResult<List<CategoryVo>> queryAllCategories();
 
     ResponseResult<List<TagVo>> queryAllTags();
+
+    ResponseResult<Object> postArticle(ArticleDTO article);
 }

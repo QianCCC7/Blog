@@ -1,6 +1,7 @@
 package com.xiaoqian.admin.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.ArticleDTO;
 import com.xiaoqian.common.domain.vo.CategoryVo;
 import com.xiaoqian.common.domain.vo.TagVo;
 import com.xiaoqian.common.service.IArticleService;
@@ -36,5 +37,11 @@ public class ArticleController {
     @PostMapping("/upload")
     public ResponseResult<Object> upload(@RequestPart("img")MultipartFile multipartFile) {
         return uploadService.upload(multipartFile);
+    }
+
+    @ApiOperation("新增博文")
+    @PostMapping("/content/article")
+    public ResponseResult<Object> postArticle(@RequestBody ArticleDTO article) {
+        return articleService.postArticle(article);
     }
 }
