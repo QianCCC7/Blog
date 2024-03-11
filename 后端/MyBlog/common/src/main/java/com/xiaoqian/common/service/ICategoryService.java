@@ -5,6 +5,7 @@ import com.xiaoqian.common.domain.pojo.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaoqian.common.domain.vo.CategoryVo;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -20,4 +21,6 @@ public interface ICategoryService extends IService<Category> {
     ResponseResult<List<CategoryVo>> getCategoryList();
 
     List<Category> queryAllCategories();
+
+    void exportExcel(HttpServletResponse response);
 }

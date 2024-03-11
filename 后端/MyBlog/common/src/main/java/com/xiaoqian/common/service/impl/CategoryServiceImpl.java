@@ -1,17 +1,25 @@
 package com.xiaoqian.common.service.impl;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.fastjson.JSON;
 import com.xiaoqian.common.constants.SystemConstants;
+import com.xiaoqian.common.domain.CategoryExcel;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Category;
 import com.xiaoqian.common.domain.vo.CategoryVo;
+import com.xiaoqian.common.enums.HttpCodeEnum;
 import com.xiaoqian.common.mapper.CategoryMapper;
 import com.xiaoqian.common.service.ICategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.utils.BeanCopyUtils;
+import com.xiaoqian.common.utils.WebUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -49,5 +57,28 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     public List<Category> queryAllCategories() {
         List<Category> categoryList = lambdaQuery().eq(Category::getStatus, SystemConstants.CATEGORY_STATUS_NORMAL).list();
         return CollectionUtils.isEmpty(categoryList) ? new ArrayList<>() : categoryList;
+    }
+
+    /**
+     * 导出excel
+     */
+    @Override
+    public void exportExcel(HttpServletResponse response) {
+        try {
+            // 1. 设置下载文件的请求头
+            WebUtils.setExcelDownloadHeader("分类.xlsx", response);
+            // 2. 获取需要导出的数据
+            List<Category> categoryList = list();
+            List<CategoryExcel> categoryExcelList = BeanCopyUtils.copyBeanList(categoryList, CategoryExcel.class);
+            // 3. 将数据写入excel
+            EasyExcel.write(response.getOutputStream(), CategoryExcel.class)
+                    .autoCloseStream(Boolean.FALSE) // 设置不关闭流
+                    .sheet("分类导出")
+                    .doWrite(categoryExcelList);
+        } catch (Exception e) {
+            response.reset();// 重置 response，清空数据
+            ResponseResult<Object> result = ResponseResult.errorResult(HttpCodeEnum.EXCEL_DOWNLOAD_ERROR);
+            WebUtils.renderString(response, JSON.toJSONString(result));
+        }
     }
 }
