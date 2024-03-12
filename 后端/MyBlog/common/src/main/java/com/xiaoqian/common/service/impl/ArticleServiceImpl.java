@@ -26,6 +26,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,5 +181,22 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .collect(Collectors.toList());
         articleTagService.saveBatch(articleTagList);
         return ResponseResult.okResult();
+    }
+
+    /**
+     * 管理端分页查询文章列表
+     */
+    @Override
+    public ResponseResult<PageVo<Article>> queryArticlePageAdmin(PageQuery query, String title, String summary) {
+        Page<Article> page = lambdaQuery()
+                .like(StringUtils.hasText(title), Article::getTitle, title)
+                .like(StringUtils.hasText(summary), Article::getSummary, summary)
+                .page(query.toPage(query.getPageNo(), query.getPageSize()));
+        List<Article> records = page.getRecords();
+        if (CollectionUtils.isEmpty(records)) {
+            return ResponseResult.okEmptyResult();
+        }
+
+        return ResponseResult.okResult(new PageVo<>(records, records.size()));
     }
 }

@@ -2,8 +2,11 @@ package com.xiaoqian.admin.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.dto.ArticleDTO;
+import com.xiaoqian.common.domain.pojo.Article;
 import com.xiaoqian.common.domain.vo.CategoryVo;
+import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.TagVo;
+import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.IArticleService;
 import com.xiaoqian.common.service.IUploadService;
 import io.swagger.annotations.Api;
@@ -43,5 +46,13 @@ public class ArticleController {
     @PostMapping("/content/article")
     public ResponseResult<Object> postArticle(@RequestBody ArticleDTO article) {
         return articleService.postArticle(article);
+    }
+
+    @ApiOperation("分页查询文章列表")
+    @GetMapping("/content/article/list")
+    public ResponseResult<PageVo<Article>> queryArticlePage(PageQuery query,
+                                                            @RequestParam(value = "title", required = false) String title,
+                                                            @RequestParam(value = "summary", required = false) String summary) {
+        return articleService.queryArticlePageAdmin(query, title, summary);
     }
 }

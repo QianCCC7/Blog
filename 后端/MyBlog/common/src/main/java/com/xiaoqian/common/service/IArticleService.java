@@ -32,4 +32,6 @@ public interface IArticleService extends IService<Article> {
     ResponseResult<List<TagVo>> queryAllTags();
 
     ResponseResult<Object> postArticle(ArticleDTO article);
+
+    ResponseResult<PageVo<Article>> queryArticlePageAdmin(PageQuery query, String title, String summary);
 }
