@@ -50,4 +50,6 @@ public class SystemConstants {
      * 菜单状态
      */
     public static final Integer MENU_STATUS_NORMAL = 0;
+
+    public static final String IS_ADMIN = "1";
 }
