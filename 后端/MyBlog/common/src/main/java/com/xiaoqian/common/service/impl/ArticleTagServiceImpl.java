@@ -46,13 +46,21 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
     @Override
     public void updateArticleTag(Long articleId, List<Long> tagIds) {
         // 3.1 先删除对应关联表
-        LambdaQueryWrapper<ArticleTag> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(ArticleTag::getArticleId, articleId);
-        remove(queryWrapper);
+        removeArticleTag(articleId);
         // 3.2 重新添加对应关联表
         List<ArticleTag> articleTagList = tagIds.stream()
                 .map(tagId -> new ArticleTag().setArticleId(articleId).setTagId(tagId))
                 .collect(Collectors.toList());
         saveBatch(articleTagList);
+    }
+
+    /**
+     * 删除文章关联表信息
+     */
+    @Override
+    public void removeArticleTag(Long articleId) {
+        LambdaQueryWrapper<ArticleTag> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ArticleTag::getArticleId, articleId);
+        remove(queryWrapper);
     }
 }

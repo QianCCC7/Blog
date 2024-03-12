@@ -38,4 +38,6 @@ public interface IArticleService extends IService<Article> {
     ResponseResult<Article> getArticleById(Long id);
 
     ResponseResult<Object> updateArticle(Article article);
+
+    ResponseResult<Object> removeArticle(Long articleId);
 }

@@ -1,7 +1,6 @@
 package com.xiaoqian.common.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.constants.RedisConstants;
 import com.xiaoqian.common.constants.SystemConstants;
@@ -232,6 +231,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
         // 3. 更新文章标签关联表
         articleTagService.updateArticleTag(article.getId(), article.getTags());
+        return ResponseResult.okResult();
+    }
+
+    /**
+     * 管理端根据文章id删除文章
+     */
+    @Transactional
+    @Override
+    public ResponseResult<Object> removeArticle(Long articleId) {
+        // 1. 删除文章信息
+        removeById(articleId);
+        // 2. 删除文章标签关联表信息
+        articleTagService.removeArticleTag(articleId);
         return ResponseResult.okResult();
     }
 }

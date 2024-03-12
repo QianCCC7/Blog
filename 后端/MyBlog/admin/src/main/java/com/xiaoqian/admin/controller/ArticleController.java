@@ -67,4 +67,10 @@ public class ArticleController {
     public ResponseResult<Object> updateArticle(@RequestBody Article article) {
         return articleService.updateArticle(article);
     }
+
+    @ApiOperation("删除文章")
+    @DeleteMapping("/content/article/{id}")
+    public ResponseResult<Object> removeArticle(@PathVariable("id") Long articleId) {
+        return articleService.removeArticle(articleId);
+    }
 }

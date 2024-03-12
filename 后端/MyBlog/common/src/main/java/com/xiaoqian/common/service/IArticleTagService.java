@@ -18,4 +18,6 @@ public interface IArticleTagService extends IService<ArticleTag> {
     List<Long> queryArticleTagIds(Long id);
 
     void updateArticleTag(Long id, List<Long> tagIds);
+
+    void removeArticleTag(Long articleId);
 }
