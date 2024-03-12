@@ -34,4 +34,8 @@ public interface IArticleService extends IService<Article> {
     ResponseResult<Object> postArticle(ArticleDTO article);
 
     ResponseResult<PageVo<Article>> queryArticlePageAdmin(PageQuery query, String title, String summary);
+
+    ResponseResult<Article> getArticleById(Long id);
+
+    ResponseResult<Object> updateArticle(Article article);
 }

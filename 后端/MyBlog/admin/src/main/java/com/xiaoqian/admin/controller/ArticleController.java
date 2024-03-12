@@ -55,4 +55,16 @@ public class ArticleController {
                                                             @RequestParam(value = "summary", required = false) String summary) {
         return articleService.queryArticlePageAdmin(query, title, summary);
     }
+
+    @ApiOperation("根据id查询文章")
+    @GetMapping("/content/article/{id}")
+    public ResponseResult<Article> getArticleById(@PathVariable("id") Long id) {
+        return articleService.getArticleById(id);
+    }
+
+    @ApiOperation("修改文章信息")
+    @PutMapping("/content/article")
+    public ResponseResult<Object> updateArticle(@RequestBody Article article) {
+        return articleService.updateArticle(article);
+    }
 }

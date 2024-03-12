@@ -19,7 +19,7 @@ public enum HttpCodeEnum {
 
     TAG_NOT_NULL(510, "标签名称不能为空"),
 
-    ARTICLE_NOT_NULL(511, "博文出现异常"),
+    ARTICLE_ERROR(511, "博文出现异常"),
 
     EXCEL_DOWNLOAD_ERROR(512, "excel文件下载出现异常")
     ;

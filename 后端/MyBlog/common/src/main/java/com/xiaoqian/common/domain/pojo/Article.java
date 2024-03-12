@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -105,4 +106,10 @@ public class Article implements Serializable {
      */
     @TableField("del_flag")
     private Integer delFlag;
+
+    /**
+     * 管理端查询博文需要标签信息
+     */
+    @TableField(value = "tags", exist = false)
+    private List<Long> tags;
 }

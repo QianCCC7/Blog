@@ -1,6 +1,7 @@
 package com.xiaoqian.common.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.constants.RedisConstants;
 import com.xiaoqian.common.constants.SystemConstants;
@@ -168,7 +169,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult<Object> postArticle(ArticleDTO articleDTO) {
         // 1. 数据校验
         if (Objects.isNull(articleDTO)) {
-            throw new ArticleException(HttpCodeEnum.ARTICLE_NOT_NULL);
+            throw new ArticleException(HttpCodeEnum.ARTICLE_ERROR);
         }
         // 2. 属性拷贝
         Article article = BeanCopyUtils.copyBean(articleDTO, Article.class);
@@ -198,5 +199,39 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
 
         return ResponseResult.okResult(new PageVo<>(records, records.size()));
+    }
+
+    /**
+     * 管理端根据文章id查询文章信息
+     */
+    @Override
+    public ResponseResult<Article> getArticleById(Long id) {
+        // 1. 根据文章 id查询文章信息
+        Article article = getById(id);
+        if (Objects.isNull(article)) {
+            throw new ArticleException(HttpCodeEnum.ARTICLE_ERROR);
+        }
+        // 2. 封装文章 tag信息
+        List<Long> tagIds = articleTagService.queryArticleTagIds(id);
+        article.setTags(tagIds);
+        return ResponseResult.okResult(article);
+    }
+
+    /**
+     * 管理端修改文章信息
+     */
+    @Transactional
+    @Override
+    public ResponseResult<Object> updateArticle(Article article) {
+        // 1. 更新文章部分信息
+        updateById(article);
+        // 2. 获取文章 tagId集合
+        List<Long> tagIds = article.getTags();
+        if (CollectionUtils.isEmpty(tagIds)) {
+            return ResponseResult.okResult();
+        }
+        // 3. 更新文章标签关联表
+        articleTagService.updateArticleTag(article.getId(), article.getTags());
+        return ResponseResult.okResult();
     }
 }
