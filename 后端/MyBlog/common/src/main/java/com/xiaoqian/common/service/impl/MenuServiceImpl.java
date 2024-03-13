@@ -112,4 +112,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         }
         return ResponseResult.okResult(BeanCopyUtils.copyBeanList(menuList, MenuVo.class));
     }
+
+    /**
+     * 管理端新增菜单
+     */
+    @Override
+    public ResponseResult<Object> addMenu(Menu menu) {
+        return ResponseResult.okResult(save(menu));
+    }
 }
