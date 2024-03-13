@@ -30,4 +30,6 @@ public interface IMenuService extends IService<Menu> {
     ResponseResult<MenuVo> queryMenuById(Long menuId);
 
     ResponseResult<Object> updateMenu(Menu menu);
+
+    ResponseResult<Object> deleteMenu(Long menuId);
 }

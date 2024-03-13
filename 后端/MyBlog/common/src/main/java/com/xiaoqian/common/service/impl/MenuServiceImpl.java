@@ -147,4 +147,26 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         updateById(menu);
         return ResponseResult.okResult();
     }
+
+    /**
+     * 删除菜单
+     */
+    @Override
+    public ResponseResult<Object> deleteMenu(Long menuId) {
+        if (hasChild(menuId)) {
+            throw new MenuException(HttpCodeEnum.MENU_DEL_ERROR);
+        }
+
+        return ResponseResult.okResult(removeById(menuId));
+    }
+
+    /**
+     * 判断菜单是否存在子菜单
+     */
+    private boolean hasChild(Long menuId) {
+        Menu menu = lambdaQuery()
+                .eq(Menu::getParentId, menuId)
+                .one();
+        return !Objects.isNull(menu);
+    }
 }

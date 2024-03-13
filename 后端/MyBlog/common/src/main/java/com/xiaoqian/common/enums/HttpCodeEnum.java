@@ -23,7 +23,8 @@ public enum HttpCodeEnum {
 
     EXCEL_DOWNLOAD_ERROR(512, "excel文件下载出现异常"),
 
-    MENU_SET_ERROR(513, "上级菜单不能选择自己")
+    MENU_SET_ERROR(513, "上级菜单不能选择自己"),
+    MENU_DEL_ERROR(514, "存在子菜单无法删除")
     ;
     int code;
     String msg;

@@ -44,4 +44,10 @@ public class MenuController {
         return menuService.updateMenu(menu);
     }
 
+    @ApiOperation("删除菜单")
+    @DeleteMapping("/{menuId}")
+    public ResponseResult<Object> deleteMenu(@PathVariable("menuId") Long menuId) {
+        return menuService.deleteMenu(menuId);
+    }
+
 }
