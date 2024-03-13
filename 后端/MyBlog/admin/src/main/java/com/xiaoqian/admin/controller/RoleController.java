@@ -11,8 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Api(tags = "角色相关接口")
 @RestController
 @RequestMapping("/system/role")
@@ -33,4 +31,12 @@ public class RoleController {
     public ResponseResult<Object> updateRoleStatus(@RequestBody RoleDTO role) {
         return roleService.updateRoleStatus(role);
     }
+
+    @ApiOperation("新增角色")
+    @PostMapping
+    public ResponseResult<Object> addRole(@RequestBody RoleDTO role) {
+        return roleService.addRole(role);
+    }
+
+
 }

@@ -8,10 +8,13 @@ import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.RoleVo;
 import com.xiaoqian.common.mapper.RoleMapper;
 import com.xiaoqian.common.query.PageQuery;
+import com.xiaoqian.common.service.IRoleMenuService;
 import com.xiaoqian.common.service.IRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.utils.BeanCopyUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -29,7 +32,9 @@ import java.util.stream.Collectors;
  * @since 2024-02-27
  */
 @Service
+@RequiredArgsConstructor
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
+    private final IRoleMenuService roleMenuService;
 
     /**
      * 查询用户的角色信息
@@ -82,6 +87,21 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
                 .eq(Role::getId, role.getRoleId())
                 .set(Role::getStatus, role.getStatus())
                 .update();
+        return ResponseResult.okResult();
+    }
+
+    /**
+     * 新增角色
+     */
+    @Transactional
+    @Override
+    public ResponseResult<Object> addRole(RoleDTO role) {
+        // 1. 更新角色表
+        Role r = BeanCopyUtils.copyBean(role, Role.class);
+        save(r);
+        // 2. 更新角色菜单表
+        role.setRoleId(r.getId());
+        roleMenuService.saveRoleMenu(role);
         return ResponseResult.okResult();
     }
 }

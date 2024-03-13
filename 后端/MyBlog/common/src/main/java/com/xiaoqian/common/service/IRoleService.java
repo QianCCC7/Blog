@@ -25,4 +25,6 @@ public interface IRoleService extends IService<Role> {
     ResponseResult<PageVo<RoleVo>> queryRolePage(PageQuery query, String roleName, String status);
 
     ResponseResult<Object> updateRoleStatus(RoleDTO role);
+
+    ResponseResult<Object> addRole(RoleDTO role);
 }
