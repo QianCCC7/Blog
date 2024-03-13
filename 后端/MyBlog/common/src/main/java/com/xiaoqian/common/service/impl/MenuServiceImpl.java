@@ -1,15 +1,19 @@
 package com.xiaoqian.common.service.impl;
 
 import com.xiaoqian.common.constants.SystemConstants;
+import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Menu;
 import com.xiaoqian.common.domain.pojo.Role;
+import com.xiaoqian.common.domain.vo.MenuVo;
 import com.xiaoqian.common.mapper.MenuMapper;
 import com.xiaoqian.common.mapper.RoleMapper;
 import com.xiaoqian.common.service.IMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xiaoqian.common.utils.BeanCopyUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,9 +77,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
                 .eq(Menu::getStatus, SystemConstants.MENU_STATUS_NORMAL)
                 .orderByAsc(Menu::getParentId, Menu::getOrderNum)
                 .list();
-        if (CollectionUtils.isEmpty(menuList)) {
-            return new ArrayList<>();
-        }
         return CollectionUtils.isEmpty(menuList) ? new ArrayList<>() : menuList;
     }
 
@@ -93,5 +94,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         List<Long> roleIds = roles.stream().map(Role::getId).collect(Collectors.toList());
         List<Menu> menuList = this.getBaseMapper().queryMenuInfoByRoleIds2(roleIds);
         return CollectionUtils.isEmpty(menuList) ? new ArrayList<>() : menuList;
+    }
+
+    /**
+     * 管理端查询菜单列表(不分页)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public ResponseResult<List<MenuVo>> queryMenuList(String menuName, String status) {
+        List<Menu> menuList = lambdaQuery()
+                .like(StringUtils.hasText(menuName), Menu::getMenuName, menuName)
+                .eq(StringUtils.hasText(status), Menu::getStatus, status)
+                .orderByAsc(Menu::getParentId, Menu::getOrderNum)
+                .list();
+        if (CollectionUtils.isEmpty(menuList)) {
+            return ResponseResult.okEmptyResult();
+        }
+        return ResponseResult.okResult(BeanCopyUtils.copyBeanList(menuList, MenuVo.class));
     }
 }

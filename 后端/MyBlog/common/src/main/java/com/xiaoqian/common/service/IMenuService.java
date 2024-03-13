@@ -1,7 +1,9 @@
 package com.xiaoqian.common.service;
 
+import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xiaoqian.common.domain.vo.MenuVo;
 
 import java.util.List;
 
@@ -20,4 +22,6 @@ public interface IMenuService extends IService<Menu> {
     List<Menu> queryMenuInfoByAdmin();
 
     List<Menu> queryMenuInfoByUserId(Long userId);
+
+    ResponseResult<List<MenuVo>> queryMenuList(String menuName, String status);
 }

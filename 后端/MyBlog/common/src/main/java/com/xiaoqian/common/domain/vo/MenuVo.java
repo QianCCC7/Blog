@@ -36,6 +36,10 @@ public class MenuVo {
     private String perms;
     @ApiModelProperty("权限图标")
     private String icon;
+    @ApiModelProperty("是否为外链")
+    private Integer isFrame;
+    @ApiModelProperty("备注")
+    private String remark;
     @ApiModelProperty("创建时间")
     private LocalDateTime createTime;
     @ApiModelProperty("子菜单信息")
