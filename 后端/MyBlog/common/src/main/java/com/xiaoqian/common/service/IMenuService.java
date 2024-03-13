@@ -26,4 +26,8 @@ public interface IMenuService extends IService<Menu> {
     ResponseResult<List<MenuVo>> queryMenuList(String menuName, String status);
 
     ResponseResult<Object> addMenu(Menu menu);
+
+    ResponseResult<MenuVo> queryMenuById(Long menuId);
+
+    ResponseResult<Object> updateMenu(Menu menu);
 }

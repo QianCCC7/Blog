@@ -21,7 +21,9 @@ public enum HttpCodeEnum {
 
     ARTICLE_ERROR(511, "博文出现异常"),
 
-    EXCEL_DOWNLOAD_ERROR(512, "excel文件下载出现异常")
+    EXCEL_DOWNLOAD_ERROR(512, "excel文件下载出现异常"),
+
+    MENU_SET_ERROR(513, "上级菜单不能选择自己")
     ;
     int code;
     String msg;

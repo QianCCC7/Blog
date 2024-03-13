@@ -5,6 +5,8 @@ import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Menu;
 import com.xiaoqian.common.domain.pojo.Role;
 import com.xiaoqian.common.domain.vo.MenuVo;
+import com.xiaoqian.common.enums.HttpCodeEnum;
+import com.xiaoqian.common.exception.MenuException;
 import com.xiaoqian.common.mapper.MenuMapper;
 import com.xiaoqian.common.mapper.RoleMapper;
 import com.xiaoqian.common.service.IMenuService;
@@ -17,6 +19,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -119,5 +122,29 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Override
     public ResponseResult<Object> addMenu(Menu menu) {
         return ResponseResult.okResult(save(menu));
+    }
+
+    /**
+     * 根据菜单id查询菜单
+     */
+    @Override
+    public ResponseResult<MenuVo> queryMenuById(Long menuId) {
+        Menu menu = getById(menuId);
+        if (Objects.isNull(menu)) {
+            return ResponseResult.okResult();
+        }
+        return ResponseResult.okResult(BeanCopyUtils.copyBean(menu, MenuVo.class));
+    }
+
+    /**
+     * 管理端修改菜单信息
+     */
+    @Override
+    public ResponseResult<Object> updateMenu(Menu menu) {
+        if (menu.getParentId().equals(menu.getId())) {
+            throw new MenuException(HttpCodeEnum.MENU_SET_ERROR);
+        }
+        updateById(menu);
+        return ResponseResult.okResult();
     }
 }

@@ -7,6 +7,7 @@ import com.xiaoqian.common.service.IMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,18 @@ public class MenuController {
     @PostMapping
     public ResponseResult<Object> addMenu(@RequestBody Menu menu) {
         return menuService.addMenu(menu);
+    }
+
+    @ApiOperation("根据菜单id查询菜单")
+    @GetMapping("/{menuId}")
+    public ResponseResult<MenuVo> queryMenuById(@PathVariable("menuId") Long menuId) {
+        return menuService.queryMenuById(menuId);
+    }
+
+    @ApiOperation("修改菜单")
+    @PutMapping
+    public ResponseResult<Object> updateMenu(@RequestBody Menu menu) {
+        return menuService.updateMenu(menu);
     }
 
 }
