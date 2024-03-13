@@ -4,6 +4,7 @@ import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Menu;
 import com.xiaoqian.common.domain.pojo.Role;
+import com.xiaoqian.common.domain.vo.MenuTreeVo;
 import com.xiaoqian.common.domain.vo.MenuVo;
 import com.xiaoqian.common.enums.HttpCodeEnum;
 import com.xiaoqian.common.exception.MenuException;
@@ -168,5 +169,49 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
                 .eq(Menu::getParentId, menuId)
                 .one();
         return !Objects.isNull(menu);
+    }
+
+    /**
+     * 新增角色时需要查询菜单树
+     */
+    @Override
+    public ResponseResult<List<MenuTreeVo>> queryMenuTree() {
+        List<MenuTreeVo> menuTreeVoList = getMenuChildren(0L);
+        if (CollectionUtils.isEmpty(menuTreeVoList)) {
+            return ResponseResult.okEmptyResult();
+        }
+        return ResponseResult.okResult(menuTreeVoList);
+    }
+
+    /**
+     * 递归查询子菜单
+     * @param id 当前菜单id
+     */
+    private List<MenuTreeVo> getMenuChildren(Long id) {
+        // 1. 查询出所有作为父节点为 id的菜单
+        List<Menu> menuList = lambdaQuery().eq(Menu::getParentId, id).list();
+        if (CollectionUtils.isEmpty(menuList)) {
+            return new ArrayList<>();
+        }
+        // 2. 属性拷贝
+        List<MenuTreeVo> menuTreeVoList = new ArrayList<>(menuList.size());
+        for (Menu menu : menuList) {
+            MenuTreeVo vo = new MenuTreeVo();
+            // 2.1 设置id
+            vo.setId(menu.getId());
+            // 2.2 设置名称
+            vo.setLabel(menu.getMenuName());
+            // 2.3 父菜单id
+            vo.setParentId(menu.getParentId());
+            menuTreeVoList.add(vo);
+        }
+        // 3. 递归查询子菜单
+        for (MenuTreeVo menuTreeVo : menuTreeVoList) {
+            List<MenuTreeVo> children = getMenuChildren(menuTreeVo.getId());
+            if (!CollectionUtils.isEmpty(children)) {
+                menuTreeVo.setChildren(children);
+            }
+        }
+        return menuTreeVoList;
     }
 }

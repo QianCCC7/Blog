@@ -3,6 +3,7 @@ package com.xiaoqian.common.service;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xiaoqian.common.domain.vo.MenuTreeVo;
 import com.xiaoqian.common.domain.vo.MenuVo;
 
 import java.util.List;
@@ -32,4 +33,6 @@ public interface IMenuService extends IService<Menu> {
     ResponseResult<Object> updateMenu(Menu menu);
 
     ResponseResult<Object> deleteMenu(Long menuId);
+
+    ResponseResult<List<MenuTreeVo>> queryMenuTree();
 }

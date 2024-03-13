@@ -2,6 +2,7 @@ package com.xiaoqian.admin.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Menu;
+import com.xiaoqian.common.domain.vo.MenuTreeVo;
 import com.xiaoqian.common.domain.vo.MenuVo;
 import com.xiaoqian.common.service.IMenuService;
 import io.swagger.annotations.Api;
@@ -48,6 +49,12 @@ public class MenuController {
     @DeleteMapping("/{menuId}")
     public ResponseResult<Object> deleteMenu(@PathVariable("menuId") Long menuId) {
         return menuService.deleteMenu(menuId);
+    }
+
+    @ApiOperation("新增角色时需要查询菜单树")
+    @GetMapping("/treeselect")
+    public ResponseResult<List<MenuTreeVo>> queryMenuTree() {
+        return menuService.queryMenuTree();
     }
 
 }
