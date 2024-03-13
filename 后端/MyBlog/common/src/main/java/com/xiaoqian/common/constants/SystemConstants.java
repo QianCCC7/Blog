@@ -51,5 +51,14 @@ public class SystemConstants {
      */
     public static final Integer MENU_STATUS_NORMAL = 0;
 
+    /**
+     * 是否为管理员
+     */
     public static final String IS_ADMIN = "1";
+
+    /**
+     * 角色状态（0正常 1停用）
+     */
+    public static final String ROLE_STATUS_NORMAL = "0";
+    public static final String ROLE_STATUS_DISABLED = "1";
 }

@@ -1,6 +1,7 @@
 package com.xiaoqian.admin.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.RoleDTO;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.RoleVo;
 import com.xiaoqian.common.query.PageQuery;
@@ -8,10 +9,7 @@ import com.xiaoqian.common.service.IRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +26,11 @@ public class RoleController {
                                                               @RequestParam(value = "roleName", required = false) String roleName,
                                                               @RequestParam(value = "status", required = false) String status) {
         return roleService.queryRolePage(query, roleName, status);
+    }
+
+    @ApiOperation("修改角色的停启用状态")
+    @PutMapping("/changeStatus")
+    public ResponseResult<Object> updateRoleStatus(@RequestBody RoleDTO role) {
+        return roleService.updateRoleStatus(role);
     }
 }

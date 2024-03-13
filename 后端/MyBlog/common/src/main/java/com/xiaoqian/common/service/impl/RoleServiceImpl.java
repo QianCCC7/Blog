@@ -2,6 +2,7 @@ package com.xiaoqian.common.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.RoleDTO;
 import com.xiaoqian.common.domain.pojo.Role;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.RoleVo;
@@ -15,7 +16,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +54,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 分页查询所有角色信息
+     */
     @Override
     public ResponseResult<PageVo<RoleVo>> queryRolePage(PageQuery query, String roleName, String status) {
         Page<Role> page = lambdaQuery()
@@ -68,5 +71,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         records.sort(Comparator.comparingInt(Role::getRoleSort));
         List<RoleVo> roleVoList = BeanCopyUtils.copyBeanList(records, RoleVo.class);
         return ResponseResult.okResult(new PageVo<>(roleVoList, records.size()));
+    }
+
+    /**
+     * 修改角色的停启用状态
+     */
+    @Override
+    public ResponseResult<Object> updateRoleStatus(RoleDTO role) {
+        lambdaUpdate()
+                .eq(Role::getId, role.getRoleId())
+                .set(Role::getStatus, role.getStatus())
+                .update();
+        return ResponseResult.okResult();
     }
 }
