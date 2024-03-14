@@ -1,6 +1,7 @@
 package com.xiaoqian.common.service;
 
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.CategoryDTO;
 import com.xiaoqian.common.domain.pojo.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaoqian.common.domain.vo.CategoryVo;
@@ -27,4 +28,12 @@ public interface ICategoryService extends IService<Category> {
     void exportExcel(HttpServletResponse response);
 
     ResponseResult<PageVo<CategoryVo>> queryCategoryPage(PageQuery pageQuery, String name, String status);
+
+    ResponseResult<Object> postCategory(CategoryDTO categoryDTO);
+
+    ResponseResult<Object> removeCategory(Long id);
+
+    ResponseResult<CategoryVo> getCategoryById(Long id);
+
+    ResponseResult<Object> updateCategory(CategoryDTO categoryDTO);
 }

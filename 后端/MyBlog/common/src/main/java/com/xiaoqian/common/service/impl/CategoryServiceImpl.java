@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.CategoryExcel;
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.CategoryDTO;
 import com.xiaoqian.common.domain.pojo.Category;
 import com.xiaoqian.common.domain.vo.CategoryVo;
 import com.xiaoqian.common.domain.vo.PageVo;
@@ -17,6 +18,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.utils.BeanCopyUtils;
 import com.xiaoqian.common.utils.WebUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -99,5 +101,43 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         }
         List<CategoryVo> categoryVoList = BeanCopyUtils.copyBeanList(records, CategoryVo.class);
         return ResponseResult.okResult(new PageVo<>(categoryVoList, records.size()));
+    }
+
+    /**
+     * 新增分类
+     */
+    @Override
+    public ResponseResult<Object> postCategory(CategoryDTO categoryDTO) {
+        Category category = BeanCopyUtils.copyBean(categoryDTO, Category.class);
+        save(category);
+        return ResponseResult.okResult();
+    }
+
+    /**
+     * 删除分类
+     */
+    @Override
+    public ResponseResult<Object> removeCategory(Long id) {
+        removeById(id);
+        return ResponseResult.okResult();
+    }
+
+    /**
+     * 修改分类信息前需要先查询分类信息
+     */
+    @Override
+    public ResponseResult<CategoryVo> getCategoryById(Long id) {
+        Category category = getById(id);
+        return ResponseResult.okResult(BeanCopyUtils.copyBean(category, CategoryVo.class));
+    }
+
+    /**
+     * 修改分类信息
+     */
+    @Override
+    public ResponseResult<Object> updateCategory(CategoryDTO categoryDTO) {
+        Category category = BeanCopyUtils.copyBean(categoryDTO, Category.class);
+        updateById(category);
+        return ResponseResult.okResult();
     }
 }

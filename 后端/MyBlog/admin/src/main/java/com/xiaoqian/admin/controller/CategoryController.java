@@ -1,6 +1,7 @@
 package com.xiaoqian.admin.controller;
 
 import com.xiaoqian.common.domain.ResponseResult;
+import com.xiaoqian.common.domain.dto.CategoryDTO;
 import com.xiaoqian.common.domain.vo.CategoryVo;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.query.PageQuery;
@@ -9,10 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,5 +34,29 @@ public class CategoryController {
                                                                 @RequestParam(value = "name", required = false) String name,
                                                                 @RequestParam(value = "status", required = false) String status) {
         return categoryService.queryCategoryPage(pageQuery, name, status);
+    }
+
+    @ApiOperation("新增分类")
+    @PostMapping
+    public ResponseResult<Object> postCategory(@RequestBody CategoryDTO categoryDTO) {
+        return categoryService.postCategory(categoryDTO);
+    }
+
+    @ApiOperation("删除分类")
+    @DeleteMapping("/{id}")
+    public ResponseResult<Object> removeCategory(@PathVariable("id") Long id) {
+        return categoryService.removeCategory(id);
+    }
+
+    @ApiOperation("根据id查询分类")
+    @GetMapping("/{id}")
+    public ResponseResult<CategoryVo> getCategoryById(@PathVariable("id") Long id) {
+        return categoryService.getCategoryById(id);
+    }
+
+    @ApiOperation("修改分类")
+    @PutMapping
+    public ResponseResult<Object> updateCategory(@RequestBody CategoryDTO categoryDTO) {
+        return categoryService.updateCategory(categoryDTO);
     }
 }
