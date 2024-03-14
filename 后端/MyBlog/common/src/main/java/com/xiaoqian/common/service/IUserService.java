@@ -5,7 +5,9 @@ import com.xiaoqian.common.domain.dto.RegisterUserDTO;
 import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.UserDetailVo;
+import com.xiaoqian.common.query.PageQuery;
 
 /**
  * <p>
@@ -22,4 +24,6 @@ public interface IUserService extends IService<User> {
     ResponseResult<Object> updateUserInfo(UserDTO user);
 
     ResponseResult<Object> register(RegisterUserDTO user);
+
+    ResponseResult<PageVo<UserDetailVo>> queryUserInfoPage(PageQuery pageQuery, String username, String phonenumber, String status);
 }

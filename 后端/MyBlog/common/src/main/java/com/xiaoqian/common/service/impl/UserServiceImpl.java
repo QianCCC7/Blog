@@ -1,9 +1,11 @@
 package com.xiaoqian.common.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.dto.RegisterUserDTO;
 import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.pojo.User;
+import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.UserDetailVo;
 import com.xiaoqian.common.enums.HttpCodeEnum;
 import com.xiaoqian.common.enums.RegisterCodeEnum;
@@ -11,6 +13,7 @@ import com.xiaoqian.common.exception.LoginException;
 import com.xiaoqian.common.exception.RegisterException;
 import com.xiaoqian.common.exception.SystemException;
 import com.xiaoqian.common.mapper.UserMapper;
+import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.utils.BeanCopyUtils;
@@ -18,8 +21,11 @@ import com.xiaoqian.common.utils.UserContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -129,5 +135,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     private boolean existEmail(String email) {
         return lambdaQuery().eq(User::getEmail, email).count() > 0;
+    }
+
+    /**
+     * 管理端分页查所有用户
+     */
+    @Override
+    public ResponseResult<PageVo<UserDetailVo>> queryUserInfoPage(PageQuery pageQuery, String username, String phonenumber, String status) {
+        Page<User> page = lambdaQuery()
+                .like(StringUtils.hasText(username), User::getUserName, username)
+                .eq(StringUtils.hasText(phonenumber), User::getPhoneNumber, phonenumber)
+                .eq(StringUtils.hasText(status), User::getStatus, status)
+                .page(pageQuery.toPage(pageQuery.getPageNo(), pageQuery.getPageSize()));
+
+        List<User> records = page.getRecords();
+        if (CollectionUtils.isEmpty(records)) {
+            return ResponseResult.okResult();
+        }
+        List<UserDetailVo> userDetailVoList = new ArrayList<>(records.size());
+        for (User record : records) {
+            UserDetailVo vo = BeanCopyUtils.copyBean(record, UserDetailVo.class);
+            vo.setPhonenumber(record.getPhoneNumber());
+            userDetailVoList.add(vo);
+        }
+        return ResponseResult.okResult(new PageVo<>(userDetailVoList, records.size()));
     }
 }
