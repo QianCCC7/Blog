@@ -12,6 +12,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Api(tags = "用户相关接口")
 @RequestMapping("/system/user")
@@ -32,5 +34,11 @@ public class UserController {
     @PostMapping
     public ResponseResult<Object> addUser(@RequestBody UserDTO userDTO) {
         return userService.addUser(userDTO);
+    }
+
+    @ApiOperation("删除用户")
+    @DeleteMapping("/{userIds}")
+    public ResponseResult<Object> removeUserById(@PathVariable("userIds") List<Long> userIds) {
+        return userService.removeUserByIds(userIds);
     }
 }

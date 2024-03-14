@@ -9,6 +9,8 @@ import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.UserDetailVo;
 import com.xiaoqian.common.query.PageQuery;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户表 服务类
@@ -28,4 +30,6 @@ public interface IUserService extends IService<User> {
     ResponseResult<PageVo<UserDetailVo>> queryUserInfoPage(PageQuery pageQuery, String username, String phonenumber, String status);
 
     ResponseResult<Object> addUser(UserDTO userDTO);
+
+    ResponseResult<Object> removeUserByIds(List<Long> userIds);
 }

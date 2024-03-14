@@ -4,6 +4,8 @@ import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.pojo.UserRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户和角色关联表 服务类
@@ -15,4 +17,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IUserRoleService extends IService<UserRole> {
 
     void addUserRole(UserDTO userDTO);
+
+    void removeUserRoleByUserIds(List<Long> userIds);
 }

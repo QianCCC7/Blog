@@ -1,5 +1,6 @@
 package com.xiaoqian.common.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.pojo.UserRole;
 import com.xiaoqian.common.mapper.UserRoleMapper;
@@ -34,5 +35,12 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
                 .map(roleId -> new UserRole().setUserId(userId).setRoleId(roleId))
                 .collect(Collectors.toList());
         saveBatch(userRoleList);
+    }
+
+    @Override
+    public void removeUserRoleByUserIds(List<Long> userIds) {
+        LambdaQueryWrapper<UserRole> wrapper = new LambdaQueryWrapper<>();
+        wrapper.in(UserRole::getUserId, userIds);
+        remove(wrapper);
     }
 }

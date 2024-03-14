@@ -184,7 +184,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setPhoneNumber(userDTO.getPhonenumber());
         save(user);
         // 2. 更新用户角色表
+        // 注意需要将 userDTO的 userId设置为已生成的 userId
+        userDTO.setId(user.getId());
         userRoleService.addUserRole(userDTO);
+        return ResponseResult.okResult();
+    }
+
+    /**
+     * 删除用户
+     */
+    @Transactional
+    @Override
+    public ResponseResult<Object> removeUserByIds(List<Long> userIds) {
+        // 1. 删除用户
+        removeByIds(userIds);
+        // 2. 更新用户角色表
+        userRoleService.removeUserRoleByUserIds(userIds);
         return ResponseResult.okResult();
     }
 }

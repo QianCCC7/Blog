@@ -1,5 +1,6 @@
 package com.xiaoqian.common.domain.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -28,10 +29,11 @@ public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户ID")
-    @TableId(value = "user_id", type = IdType.NONE)
+    @TableId(value = "user_id")
     private Long userId;
 
     @ApiModelProperty(value = "角色ID")
+    @TableField("role_id")
     private Long roleId;
 
 
