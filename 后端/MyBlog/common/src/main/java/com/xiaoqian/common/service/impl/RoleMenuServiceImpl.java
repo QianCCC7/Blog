@@ -52,7 +52,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
     }
 
     /**
-     * 更细角色信息时，需要更新角色菜单表
+     * 更新角色信息时，需要更新角色菜单表
      */
     @Override
     public void updateRoleMenu(RoleDTO roleDTO) {
@@ -68,5 +68,15 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
                 .map(menuId -> new RoleMenu().setRoleId(roleId).setMenuId(menuId))
                 .collect(Collectors.toList());
         saveBatch(roleMenuList);
+    }
+
+    /**
+     * 删除角色信息时，需要删除角色菜单表
+     */
+    @Override
+    public void removeRoleMenu(Long roleId) {
+        LambdaQueryWrapper<RoleMenu> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(RoleMenu::getRoleId, roleId);
+        remove(wrapper);
     }
 }

@@ -31,4 +31,6 @@ public interface IRoleService extends IService<Role> {
     ResponseResult<RoleVo> queryRoleInfoById(Long roleId);
 
     ResponseResult<Object> updateRoleInfo(RoleDTO roleDTO);
+
+    ResponseResult<Object> removeRoleById(Long roleId);
 }

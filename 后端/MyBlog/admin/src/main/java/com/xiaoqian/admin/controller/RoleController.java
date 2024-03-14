@@ -49,4 +49,10 @@ public class RoleController {
     public ResponseResult<Object> updateRoleInfo(@RequestBody RoleDTO roleDTO) {
         return roleService.updateRoleInfo(roleDTO);
     }
+
+    @ApiOperation("删除角色")
+    @DeleteMapping("/{id}")
+    public ResponseResult<Object> removeRoleById(@PathVariable("id") Long roleId) {
+        return roleService.removeRoleById(roleId);
+    }
 }

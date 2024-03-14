@@ -133,4 +133,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         }
         return ResponseResult.okResult();
     }
+
+    /**
+     * 删除角色
+     */
+    @Transactional
+    @Override
+    public ResponseResult<Object> removeRoleById(Long roleId) {
+        // 1. 删除基本信息
+        removeById(roleId);
+        // 2. 删除角色菜单表
+        roleMenuService.removeRoleMenu(roleId);
+        return ResponseResult.okResult();
+    }
 }
