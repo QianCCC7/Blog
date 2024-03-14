@@ -6,21 +6,21 @@ import com.xiaoqian.common.domain.pojo.Menu;
 import com.xiaoqian.common.domain.pojo.Role;
 import com.xiaoqian.common.domain.vo.MenuTreeVo;
 import com.xiaoqian.common.domain.vo.MenuVo;
+import com.xiaoqian.common.domain.vo.RoleMenuTreeVo;
 import com.xiaoqian.common.enums.HttpCodeEnum;
 import com.xiaoqian.common.exception.MenuException;
 import com.xiaoqian.common.mapper.MenuMapper;
 import com.xiaoqian.common.mapper.RoleMapper;
 import com.xiaoqian.common.service.IMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xiaoqian.common.service.IRoleMenuService;
 import com.xiaoqian.common.utils.BeanCopyUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
     private final RoleMapper roleMapper;
+    private final IRoleMenuService roleMenuService;
 
     /**
      * 查询用户的权限信息
@@ -185,7 +186,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     /**
      * 递归查询子菜单
-     * @param id 当前菜单id
+     * @param id 父级菜单id
      */
     private List<MenuTreeVo> getMenuChildren(Long id) {
         // 1. 查询出所有作为父节点为 id的菜单
@@ -213,5 +214,29 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             }
         }
         return menuTreeVoList;
+    }
+
+    /**
+     * 根据角色id查询角色对应的菜单树
+     */
+    @Override
+    public ResponseResult<RoleMenuTreeVo> queryMenuTreeByRoleId(Long roleId) {
+        // 1. 通过角色 id查找对应角色的所有菜单 id
+        List<Long> menuIds = roleMenuService.queryMenuIdsByRoleId(roleId);
+        if (CollectionUtils.isEmpty(menuIds)) {
+            return ResponseResult.okEmptyResult();
+        }
+        // 2. 查询所有菜单信息
+        List<MenuTreeVo> menuTreeVoList = getMenuChildren(0L);
+        // 3. 封装返回结果
+        RoleMenuTreeVo roleMenuTreeVo = new RoleMenuTreeVo();
+        // 3.1 封装该用户对应的菜单 id
+        List<Long> roleIds = roleMenuService.queryMenuIdsByRoleId(roleId);
+        if (!CollectionUtils.isEmpty(roleIds)) {
+            roleMenuTreeVo.setCheckedKeys(roleIds);
+        }
+        // 3.2 返回菜单树
+        roleMenuTreeVo.setMenus(menuTreeVoList);
+        return ResponseResult.okResult(roleMenuTreeVo);
     }
 }

@@ -4,6 +4,8 @@ import com.xiaoqian.common.domain.dto.RoleDTO;
 import com.xiaoqian.common.domain.pojo.RoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色和菜单关联表 服务类
@@ -15,4 +17,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IRoleMenuService extends IService<RoleMenu> {
 
     void saveRoleMenu(RoleDTO role);
+
+    List<Long> queryMenuIdsByRoleId(Long roleId);
+
+    void updateRoleMenu(RoleDTO roleDTO);
 }

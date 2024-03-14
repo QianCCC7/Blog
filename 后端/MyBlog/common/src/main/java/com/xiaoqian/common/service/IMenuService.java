@@ -5,6 +5,7 @@ import com.xiaoqian.common.domain.pojo.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaoqian.common.domain.vo.MenuTreeVo;
 import com.xiaoqian.common.domain.vo.MenuVo;
+import com.xiaoqian.common.domain.vo.RoleMenuTreeVo;
 
 import java.util.List;
 
@@ -35,4 +36,6 @@ public interface IMenuService extends IService<Menu> {
     ResponseResult<Object> deleteMenu(Long menuId);
 
     ResponseResult<List<MenuTreeVo>> queryMenuTree();
+
+    ResponseResult<RoleMenuTreeVo> queryMenuTreeByRoleId(Long roleId);
 }

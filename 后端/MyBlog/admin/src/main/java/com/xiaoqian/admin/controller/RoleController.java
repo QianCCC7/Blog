@@ -38,5 +38,15 @@ public class RoleController {
         return roleService.addRole(role);
     }
 
+    @ApiOperation("根据角色id查询对应的角色")
+    @GetMapping("/{roleId}")
+    public ResponseResult<RoleVo> queryRoleInfoById(@PathVariable("roleId") Long roleId) {
+        return roleService.queryRoleInfoById(roleId);
+    }
 
+    @ApiOperation("更新角色信息接口")
+    @PutMapping
+    public ResponseResult<Object> updateRoleInfo(@RequestBody RoleDTO roleDTO) {
+        return roleService.updateRoleInfo(roleDTO);
+    }
 }

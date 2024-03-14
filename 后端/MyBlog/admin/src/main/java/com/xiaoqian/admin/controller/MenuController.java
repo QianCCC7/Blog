@@ -4,11 +4,11 @@ import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Menu;
 import com.xiaoqian.common.domain.vo.MenuTreeVo;
 import com.xiaoqian.common.domain.vo.MenuVo;
+import com.xiaoqian.common.domain.vo.RoleMenuTreeVo;
 import com.xiaoqian.common.service.IMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,6 +55,12 @@ public class MenuController {
     @GetMapping("/treeselect")
     public ResponseResult<List<MenuTreeVo>> queryMenuTree() {
         return menuService.queryMenuTree();
+    }
+
+    @ApiOperation("根据角色id查询角色对应的菜单树")
+    @GetMapping("/roleMenuTreeselect/{id}")
+    public ResponseResult<RoleMenuTreeVo> queryMenuTreeByRoleId(@PathVariable("id") Long roleId) {
+        return menuService.queryMenuTreeByRoleId(roleId);
     }
 
 }

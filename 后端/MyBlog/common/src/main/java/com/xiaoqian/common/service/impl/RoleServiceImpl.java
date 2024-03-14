@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -102,6 +103,34 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         // 2. 更新角色菜单表
         role.setRoleId(r.getId());
         roleMenuService.saveRoleMenu(role);
+        return ResponseResult.okResult();
+    }
+
+    /**
+     * 角色id查询对应的角色
+     */
+    @Override
+    public ResponseResult<RoleVo> queryRoleInfoById(Long roleId) {
+        Role role = getById(roleId);
+        if (Objects.isNull(role)) {
+            return ResponseResult.okEmptyResult();
+        }
+        return ResponseResult.okResult(BeanCopyUtils.copyBean(role, RoleVo.class));
+    }
+
+    /**
+     * 更新角色信息
+     */
+    @Transactional
+    @Override
+    public ResponseResult<Object> updateRoleInfo(RoleDTO roleDTO) {
+        // 1. 更新基本信息
+        Role role = BeanCopyUtils.copyBean(roleDTO, Role.class);
+        updateById(role);
+        // 2. 更新角色菜单表
+        if (!CollectionUtils.isEmpty(roleDTO.getMenuIds())) {
+            roleMenuService.updateRoleMenu(roleDTO);
+        }
         return ResponseResult.okResult();
     }
 }

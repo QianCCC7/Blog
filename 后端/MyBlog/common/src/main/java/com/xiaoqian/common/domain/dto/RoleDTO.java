@@ -14,6 +14,7 @@ import java.util.List;
 @ApiModel("角色实体")
 public class RoleDTO {
     @ApiModelProperty("角色id")
+    private Long id;
     private Long roleId;
     @ApiModelProperty("角色名称")
     private String roleName;

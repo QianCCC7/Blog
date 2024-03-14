@@ -21,4 +21,6 @@ public class RoleVo {
     private Integer roleSort;
     @ApiModelProperty("角色状态")
     private String status;
+    @ApiModelProperty("角色备注")
+    private String remark;
 }
