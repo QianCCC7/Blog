@@ -2,13 +2,16 @@ package com.xiaoqian.common.service.impl;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.constants.SystemConstants;
 import com.xiaoqian.common.domain.CategoryExcel;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.pojo.Category;
 import com.xiaoqian.common.domain.vo.CategoryVo;
+import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.enums.HttpCodeEnum;
 import com.xiaoqian.common.mapper.CategoryMapper;
+import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.ICategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.utils.BeanCopyUtils;
@@ -16,6 +19,7 @@ import com.xiaoqian.common.utils.WebUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -78,5 +82,22 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             ResponseResult<Object> result = ResponseResult.errorResult(HttpCodeEnum.EXCEL_DOWNLOAD_ERROR);
             WebUtils.renderString(response, JSON.toJSONString(result));
         }
+    }
+
+    /**
+     * 分页查询分类列表
+     */
+    @Override
+    public ResponseResult<PageVo<CategoryVo>> queryCategoryPage(PageQuery pageQuery, String name, String status) {
+        Page<Category> page = lambdaQuery()
+                .like(StringUtils.hasText(name), Category::getName, name)
+                .eq(StringUtils.hasText(status), Category::getStatus, status)
+                .page(pageQuery.toPage(pageQuery.getPageNo(), pageQuery.getPageSize()));
+        List<Category> records = page.getRecords();
+        if (CollectionUtils.isEmpty(records)) {
+            return ResponseResult.okEmptyResult();
+        }
+        List<CategoryVo> categoryVoList = BeanCopyUtils.copyBeanList(records, CategoryVo.class);
+        return ResponseResult.okResult(new PageVo<>(categoryVoList, records.size()));
     }
 }

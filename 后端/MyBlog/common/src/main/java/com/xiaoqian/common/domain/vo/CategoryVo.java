@@ -15,4 +15,10 @@ public class CategoryVo {
     private Long id;
     @ApiModelProperty("分类名称")
     private String name;
+    @ApiModelProperty("分类状态")
+    private String status;
+    @ApiModelProperty("分类描述")
+    private String description;
+    @ApiModelProperty("父分类id")
+    private Long pid;
 }
