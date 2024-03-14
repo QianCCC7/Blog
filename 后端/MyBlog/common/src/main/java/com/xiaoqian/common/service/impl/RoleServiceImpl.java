@@ -146,4 +146,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         roleMenuService.removeRoleMenu(roleId);
         return ResponseResult.okResult();
     }
+
+    /**
+     * 新增角色时需要查询角色列表
+     */
+    @Override
+    public ResponseResult<List<RoleVo>> queryRoleList() {
+        List<Role> roleList = list();
+        if (CollectionUtils.isEmpty(roleList)) {
+            return ResponseResult.okEmptyResult();
+        }
+        List<RoleVo> roleVoList = BeanCopyUtils.copyBeanList(roleList, RoleVo.class);
+        return ResponseResult.okResult(roleVoList);
+    }
 }

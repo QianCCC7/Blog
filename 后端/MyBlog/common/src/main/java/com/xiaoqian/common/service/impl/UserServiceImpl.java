@@ -14,6 +14,7 @@ import com.xiaoqian.common.exception.RegisterException;
 import com.xiaoqian.common.exception.SystemException;
 import com.xiaoqian.common.mapper.UserMapper;
 import com.xiaoqian.common.query.PageQuery;
+import com.xiaoqian.common.service.IUserRoleService;
 import com.xiaoqian.common.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoqian.common.utils.BeanCopyUtils;
@@ -21,6 +22,7 @@ import com.xiaoqian.common.utils.UserContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -40,6 +42,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     private final PasswordEncoder passwordEncoder;
+    private final IUserRoleService userRoleService;
+
 
     /**
      * 查询当前登录用户信息
@@ -76,6 +80,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public ResponseResult<Object> register(RegisterUserDTO user) {
+        checkIsRepeatUser(user);
+        // 3. 密码加密
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // 4. 存入数据
+        save(BeanCopyUtils.copyBean(user, User.class));
+        return ResponseResult.okResult();
+    }
+
+    /**
+     * 判断用户是否合法
+     */
+    private void checkIsRepeatUser(RegisterUserDTO user) {
         // 1. 数据非空判断
         if (Objects.isNull(user)) {
             throw new SystemException(HttpCodeEnum.SYSTEM_ERROR);
@@ -109,11 +125,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (existEmail(user.getEmail())) {
             throw new RegisterException(RegisterCodeEnum.EMAIL_EXIST);
         }
-        // 3. 密码加密
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // 4. 存入数据
-        save(BeanCopyUtils.copyBean(user, User.class));
-        return ResponseResult.okResult();
     }
 
     /**
@@ -159,5 +170,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             userDetailVoList.add(vo);
         }
         return ResponseResult.okResult(new PageVo<>(userDetailVoList, records.size()));
+    }
+
+    /**
+     * 新增用户
+     */
+    @Transactional
+    @Override
+    public ResponseResult<Object> addUser(UserDTO userDTO) {
+        // 1. 保存基本信息
+        User user = BeanCopyUtils.copyBean(userDTO, User.class);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setPhoneNumber(userDTO.getPhonenumber());
+        save(user);
+        // 2. 更新用户角色表
+        userRoleService.addUserRole(userDTO);
+        return ResponseResult.okResult();
     }
 }

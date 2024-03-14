@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(tags = "角色相关接口")
 @RestController
 @RequestMapping("/system/role")
@@ -54,5 +56,11 @@ public class RoleController {
     @DeleteMapping("/{id}")
     public ResponseResult<Object> removeRoleById(@PathVariable("id") Long roleId) {
         return roleService.removeRoleById(roleId);
+    }
+
+    @ApiOperation("查询角色列表")
+    @GetMapping("/listAllRole")
+    public ResponseResult<List<RoleVo>> queryRoleList() {
+        return roleService.queryRoleList();
     }
 }

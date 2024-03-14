@@ -26,4 +26,6 @@ public interface IUserService extends IService<User> {
     ResponseResult<Object> register(RegisterUserDTO user);
 
     ResponseResult<PageVo<UserDetailVo>> queryUserInfoPage(PageQuery pageQuery, String username, String phonenumber, String status);
+
+    ResponseResult<Object> addUser(UserDTO userDTO);
 }
