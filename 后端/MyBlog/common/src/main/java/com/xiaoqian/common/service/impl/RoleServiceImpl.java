@@ -159,4 +159,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         List<RoleVo> roleVoList = BeanCopyUtils.copyBeanList(roleList, RoleVo.class);
         return ResponseResult.okResult(roleVoList);
     }
+
+    @Override
+    public List<Role> queryRoles() {
+        return list();
+    }
 }

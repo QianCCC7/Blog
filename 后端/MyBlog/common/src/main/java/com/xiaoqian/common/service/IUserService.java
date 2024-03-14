@@ -7,6 +7,7 @@ import com.xiaoqian.common.domain.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.UserDetailVo;
+import com.xiaoqian.common.domain.vo.UserRoleVo;
 import com.xiaoqian.common.query.PageQuery;
 
 import java.util.List;
@@ -32,4 +33,8 @@ public interface IUserService extends IService<User> {
     ResponseResult<Object> addUser(UserDTO userDTO);
 
     ResponseResult<Object> removeUserByIds(List<Long> userIds);
+
+    ResponseResult<UserRoleVo> queryUserInfoById(Long userId);
+
+    ResponseResult<Object> updateUser(UserDTO userDTO);
 }

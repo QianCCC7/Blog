@@ -19,4 +19,8 @@ public interface IUserRoleService extends IService<UserRole> {
     void addUserRole(UserDTO userDTO);
 
     void removeUserRoleByUserIds(List<Long> userIds);
+
+    List<Long> queryRolesByUserId(Long userId);
+
+    void updateUserRole(UserDTO userDTO);
 }

@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.dto.RegisterUserDTO;
 import com.xiaoqian.common.domain.dto.UserDTO;
+import com.xiaoqian.common.domain.pojo.Role;
 import com.xiaoqian.common.domain.pojo.User;
 import com.xiaoqian.common.domain.vo.PageVo;
+import com.xiaoqian.common.domain.vo.RoleVo;
 import com.xiaoqian.common.domain.vo.UserDetailVo;
+import com.xiaoqian.common.domain.vo.UserRoleVo;
 import com.xiaoqian.common.enums.HttpCodeEnum;
 import com.xiaoqian.common.enums.RegisterCodeEnum;
 import com.xiaoqian.common.exception.LoginException;
@@ -14,6 +17,7 @@ import com.xiaoqian.common.exception.RegisterException;
 import com.xiaoqian.common.exception.SystemException;
 import com.xiaoqian.common.mapper.UserMapper;
 import com.xiaoqian.common.query.PageQuery;
+import com.xiaoqian.common.service.IRoleService;
 import com.xiaoqian.common.service.IUserRoleService;
 import com.xiaoqian.common.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -43,7 +47,7 @@ import java.util.Objects;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final IUserRoleService userRoleService;
-
+    private final IRoleService roleService;
 
     /**
      * 查询当前登录用户信息
@@ -200,6 +204,41 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         removeByIds(userIds);
         // 2. 更新用户角色表
         userRoleService.removeUserRoleByUserIds(userIds);
+        return ResponseResult.okResult();
+    }
+
+    /**
+     * 修改用户信息前需要查询用户信息
+     */
+    @Override
+    public ResponseResult<UserRoleVo> queryUserInfoById(Long userId) {
+        // 1. 查询用户对应的角色 id集合
+        List<Long> roleIdList = userRoleService.queryRolesByUserId(userId);
+        // 2. 查询角色 id集合对应的角色信息
+        List<Role> roleList = roleService.queryRoles();
+        // 3. 查询用户信息
+        User user = lambdaQuery().eq(User::getId, userId).one();
+        UserDetailVo userDetailVo = BeanCopyUtils.copyBean(user, UserDetailVo.class);
+        userDetailVo.setPhonenumber(user.getPhoneNumber());
+        // 4. 封装用户信息
+        UserRoleVo vo = new UserRoleVo();
+        vo.setRoleIds(roleIdList);
+        vo.setRoles(BeanCopyUtils.copyBeanList(roleList, RoleVo.class));
+        vo.setUser(userDetailVo);
+        return ResponseResult.okResult(vo);
+    }
+
+    /**
+     * 管理端更新用户信息
+     */
+    @Transactional
+    @Override
+    public ResponseResult<Object> updateUser(UserDTO userDTO) {
+        // 1. 更新基本信息
+        User user = BeanCopyUtils.copyBean(userDTO, User.class);
+        updateById(user);
+        // 2. 更新用户角色表
+        userRoleService.updateUserRole(userDTO);
         return ResponseResult.okResult();
     }
 }

@@ -5,6 +5,7 @@ import com.xiaoqian.common.domain.ResponseResult;
 import com.xiaoqian.common.domain.dto.UserDTO;
 import com.xiaoqian.common.domain.vo.PageVo;
 import com.xiaoqian.common.domain.vo.UserDetailVo;
+import com.xiaoqian.common.domain.vo.UserRoleVo;
 import com.xiaoqian.common.query.PageQuery;
 import com.xiaoqian.common.service.IUserService;
 import io.swagger.annotations.Api;
@@ -40,5 +41,17 @@ public class UserController {
     @DeleteMapping("/{userIds}")
     public ResponseResult<Object> removeUserById(@PathVariable("userIds") List<Long> userIds) {
         return userService.removeUserByIds(userIds);
+    }
+
+    @ApiOperation("根据用户id查询用户信息")
+    @GetMapping("/{userId}")
+    public ResponseResult<UserRoleVo> queryUserInfoById(@PathVariable("userId") Long userId) {
+        return userService.queryUserInfoById(userId);
+    }
+
+    @ApiOperation("修改用户信息")
+    @PutMapping
+    public ResponseResult<Object> updateUser(@RequestBody UserDTO userDTO) {
+        return userService.updateUser(userDTO);
     }
 }
