@@ -1,4 +1,4 @@
-package com.xiaoqian.common.domain.vo;
+package com.xiaoqian.common.domain.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("友链粗略信息")
-public class LinkVo {
+@ApiModel("友链实体")
+public class LinkDTO {
     @ApiModelProperty("友链id")
     private Long id;
     @ApiModelProperty("友链名称")

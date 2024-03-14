@@ -26,6 +26,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -128,6 +129,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public ResponseResult<CategoryVo> getCategoryById(Long id) {
         Category category = getById(id);
+        if (Objects.isNull(category)) {
+            return ResponseResult.okResult();
+        }
         return ResponseResult.okResult(BeanCopyUtils.copyBean(category, CategoryVo.class));
     }
 
