@@ -2,6 +2,7 @@
   <div class="app-container">
     <el-row :gutter="20">
       <el-col :span="24" :xs="24">
+        <!--搜索栏-->
         <el-form
           v-show="showSearch"
           ref="queryForm"
@@ -50,7 +51,7 @@
             >搜索</el-button>
           </el-form-item>
         </el-form>
-
+        <!--新增与删除用户-->
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button
@@ -95,7 +96,6 @@
             </template>
           </el-table-column>
           <el-table-column prop="createTime" label="创建时间" align="center" />
-
           <el-table-column
             label="操作"
             align="center"
@@ -132,6 +132,7 @@
     <!-- 添加或修改参数配置对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <!--用户昵称-->
         <el-row>
           <el-col :span="24">
             <el-form-item label="用户昵称" prop="nickName">
@@ -143,6 +144,7 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <!--手机号码及邮箱-->
         <el-row>
           <el-col :span="12">
             <el-form-item label="手机号码" prop="phonenumber">
@@ -163,6 +165,7 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <!--用户名称及密码-->
         <el-row>
           <el-col :span="12">
             <el-form-item
@@ -193,6 +196,7 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <!--用户性别及状态-->
         <el-row>
           <el-col :span="12">
             <el-form-item label="用户性别">
@@ -212,6 +216,7 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <!--用户角色-->
         <el-row>
           <el-col :span="24">
             <el-form-item label="角色">
@@ -221,16 +226,17 @@
                   :key="item.id"
                   :label="item.roleName"
                   :value="item.id"
-                  :disabled="item.status == 1"
+                  :disabled="item.status === 1"
                 />
               </el-select>
             </el-form-item>
-          </el-col></el-row>
-
+          </el-col>
+        </el-row>
       </el-form>
+      <!--取消与确定-->
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="submitForm">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -317,7 +323,9 @@ export default {
       // 选中数组
       ids: [],
       // 表单参数
-      form: {}
+      form: {
+        roleIds: []
+      }
     }
   },
   watch: {},
@@ -372,10 +380,12 @@ export default {
       getUser(id).then((response) => {
         this.form = response.user
         this.roleOptions = response.roles
-        this.form.roleIds = response.roleIds
+        // this.form.roleIds = response.roleIds
+        // 通过this.$set来手动触发数据的变化检测，确保this.form.roleIds的变化被Vue.js正确地检测到，并更新到下拉列表中
+        this.$set(this.form, 'roleIds', response.roleIds)
         this.open = true
         this.title = '修改用户'
-        this.form.password = response.password
+        // this.form.password = response.user.password
       })
     },
     // 表单重置
