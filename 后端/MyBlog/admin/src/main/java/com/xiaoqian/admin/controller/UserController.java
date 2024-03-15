@@ -54,4 +54,10 @@ public class UserController {
     public ResponseResult<Object> updateUser(@RequestBody UserDTO userDTO) {
         return userService.updateUser(userDTO);
     }
+
+    @ApiOperation("直接修改用户状态")
+    @PutMapping("/changeStatus")
+    public ResponseResult<Object> updateUserStatus(@RequestBody UserDTO userDTO) {
+        return userService.updateUserStatus(userDTO);
+    }
 }

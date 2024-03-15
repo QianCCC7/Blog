@@ -37,4 +37,6 @@ public interface IUserService extends IService<User> {
     ResponseResult<UserRoleVo> queryUserInfoById(Long userId);
 
     ResponseResult<Object> updateUser(UserDTO userDTO);
+
+    ResponseResult<Object> updateUserStatus(UserDTO userDTO);
 }

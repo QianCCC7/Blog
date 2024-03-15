@@ -241,4 +241,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userRoleService.updateUserRole(userDTO);
         return ResponseResult.okResult();
     }
+
+    /**
+     * 直接修改用户状态
+     */
+    @Override
+    public ResponseResult<Object> updateUserStatus(UserDTO userDTO) {
+        // 1. 更新基本信息
+        User user = BeanCopyUtils.copyBean(userDTO, User.class);
+        updateById(user);
+        return ResponseResult.okResult();
+    }
 }
