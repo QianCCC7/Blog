@@ -79,7 +79,7 @@
         <template slot-scope="scope">
           <el-tag v-if="scope.row.status == 0" type="success">通过</el-tag>
           <el-tag v-if="scope.row.status == 1" type="danger">未通过</el-tag>
-          <el-tag v-if="scope.row.status == 2" type="danger">未审核</el-tag>
+          <el-tag v-if="scope.row.status == 2" type="warning">未审核</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -106,14 +106,14 @@
             v-if="scope.row.status == 2"
             size="mini"
             type="text"
-            icon="el-icon-delete"
+            icon="el-icon-success"
             @click="handleChangeStatus(scope.row, '0')"
           >审核通过</el-button>
           <el-button
             v-if="scope.row.status == 2"
             size="mini"
             type="text"
-            icon="el-icon-delete"
+            icon="el-icon-error"
             @click="handleChangeStatus(scope.row, '1')"
           >审核不通过</el-button>
         </template>
